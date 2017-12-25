@@ -1,8 +1,11 @@
-package com.teamvii.healthcare;
+package com.teamvii.healthcare.Ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
+import com.teamvii.healthcare.R;
 import com.teamvii.healthcare.connection.ApiClient;
 import com.teamvii.healthcare.connection.ApiInterface;
 
@@ -15,5 +18,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView( R.layout.activity_main );
 
         apiInterface = ApiClient.getApiClient().create( ApiInterface.class );
+    }
+
+    public void FindYourDR(View view) {
+        Intent intent = new Intent( MainActivity.this, FindDoctor.class );
+        startActivity( intent );
     }
 }
