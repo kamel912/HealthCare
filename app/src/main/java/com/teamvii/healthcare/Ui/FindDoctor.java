@@ -1,5 +1,6 @@
 package com.teamvii.healthcare.Ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
@@ -100,6 +101,13 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
         SP_LANG.setOnItemSelectedListener( this );
 
 
+        findViewById( R.id.btnFindDoctors ).setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SendIdToServer();
+
+            }
+        } );
     }
 
     //TODO methos response of get number of item we weant
@@ -191,6 +199,13 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
         insurance_txt.setText( R.string.insurance );
         gender_txt.setText( R.string.select_gender );
         lang_txt.setText( R.string.select_lang );
+
+    }
+
+    //TODO here we want send id from spinner to server
+    public void SendIdToServer() {
+        Intent intent = new Intent( FindDoctor.this, ShowDoctors.class );
+        startActivity( intent );
 
     }
 }

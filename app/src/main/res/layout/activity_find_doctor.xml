@@ -412,7 +412,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnFindDoctors"
         android:layout_width="351dp"
         android:layout_height="39dp"
         android:layout_gravity="center"

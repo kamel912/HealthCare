@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class ApiClient {
-    private static final String BASE_URL = "http://10.0.2.2/healthcare/";
+    private static final String BASE_URL = "http://devsinai.com/healthcare/";
     //    private static final String BASE_URL = "http://10.0.0.2/ayokhedma/";
     private static Gson gson = new GsonBuilder()
             .setLenient()

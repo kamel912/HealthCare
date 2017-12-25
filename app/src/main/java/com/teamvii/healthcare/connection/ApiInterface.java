@@ -13,7 +13,7 @@ import retrofit2.http.Query;
  */
 
 public interface ApiInterface {
-    @GET("doctors.php")
+    @GET("doctors.php?")
     Call<List<Doctor>> DOCTOR_CALL(@Query("id") String id);
 
     @GET("doctors.php")

@@ -41,6 +41,17 @@ public class Doctor {
     @Expose
     public String insurance;
 
+    public Doctor(String name, String languageEnglish, String languageArabic, String speciality, String gender, String areas, String state, String insurance) {
+        this.name = name;
+        this.languageEnglish = languageEnglish;
+        this.languageArabic = languageArabic;
+        this.speciality = speciality;
+        this.gender = gender;
+        this.areas = areas;
+        this.state = state;
+        this.insurance = insurance;
+    }
+
     public String toString() {
         String string =
                 "Name : " + name +
@@ -56,5 +67,68 @@ public class Doctor {
         return string;
     }
 
+    public String getName() {
 
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLanguageEnglish() {
+        return languageEnglish;
+    }
+
+    public void setLanguageEnglish(String languageEnglish) {
+        this.languageEnglish = languageEnglish;
+    }
+
+    public String getLanguageArabic() {
+        return languageArabic;
+    }
+
+    public void setLanguageArabic(String languageArabic) {
+        this.languageArabic = languageArabic;
+    }
+
+    public String getSpeciality() {
+        return speciality;
+    }
+
+    public void setSpeciality(String speciality) {
+        this.speciality = speciality;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getAreas() {
+        return areas;
+    }
+
+    public void setAreas(String areas) {
+        this.areas = areas;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getInsurance() {
+        return insurance;
+    }
+
+    public void setInsurance(String insurance) {
+        this.insurance = insurance;
+    }
 }
