@@ -29,10 +29,16 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/sp_txt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_weight="1"
             android:background="@drawable/ridgt_gray_background"
+            android:paddingBottom="2dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="2dp"
             android:text="@string/select_speciality"
             android:textAlignment="center" />
 
@@ -43,14 +49,28 @@
 
         </View>
 
-        <Spinner
-            android:id="@+id/SP_SPECIALITY"
-            android:layout_width="20dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/sp_gray"
-            android:entries="@array/speciality"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+            android:layout_weight="12"
+            android:background="@drawable/sp_gray">
 
+            <Spinner
+                android:id="@+id/SP_SPECIALITY"
+                style="@style/Widget.App.Spinner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/ic_arrow_drop_down_black"
+                android:entries="@array/speciality"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -73,10 +93,15 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/state_txt"
                 android:layout_width="match_parent"
                 android:layout_height="28dp"
                 android:layout_weight="1"
                 android:background="@drawable/ridgt_gray_background"
+                android:paddingBottom="2dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="2dp"
                 android:text="@string/select_state"
                 android:textAlignment="center" />
 
@@ -87,13 +112,25 @@
 
             </View>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="4"
+                android:background="@color/color_gay">
             <Spinner
                 android:id="@+id/SP_STAT"
-                android:layout_width="20dp"
+                style="@style/Widget.App.Spinner"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/color_gay"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_arrow_drop_down_black"
                 android:entries="@array/state"
+                android:paddingBottom="1dp"
+                android:paddingLeft="1dp"
+                android:paddingRight="1dp"
+                android:paddingTop="1dp"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+            </LinearLayout>
 
             <View
                 android:layout_width="1dp"
@@ -138,10 +175,15 @@
             android:gravity="start">
 
             <TextView
+                android:id="@+id/area_txt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/ridgt_gray_background"
+                android:paddingBottom="2dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="2dp"
                 android:text="@string/select_area"
                 android:textAlignment="center" />
 
@@ -152,12 +194,27 @@
 
             </View>
 
-            <Spinner
-                android:id="@+id/SP_AREA"
-                android:layout_width="20dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/sp_gray"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+                android:layout_weight="5"
+                android:background="@drawable/sp_gray">
+
+                <Spinner
+                    android:id="@+id/SP_AREA"
+                    style="@style/Widget.App.Spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/ic_arrow_drop_down_black"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="5dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+            </LinearLayout>
 
 
         </LinearLayout>
@@ -184,10 +241,15 @@
         android:background="@drawable/ridgt_gray_background">
 
         <TextView
+            android:id="@+id/insurance_txt"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/ridgt_gray_background"
+            android:paddingBottom="2dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="2dp"
             android:text="@string/insurance"
             android:textAlignment="center" />
 
@@ -198,13 +260,28 @@
 
         </View>
 
-        <Spinner
-            android:id="@+id/SP_INSURANCE"
-            android:layout_width="20dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/sp_gray"
-            android:entries="@array/insurance"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+            android:layout_weight="12"
+            android:background="@drawable/sp_gray">
+
+            <Spinner
+                android:id="@+id/SP_INSURANCE"
+                style="@style/Widget.App.Spinner"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:background="@drawable/ic_arrow_drop_down_black"
+                android:entries="@array/insurance"
+                android:paddingBottom="5dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="5dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+        </LinearLayout>
 
 
     </LinearLayout>
@@ -227,10 +304,15 @@
             android:background="@drawable/gray_background">
 
             <TextView
+                android:id="@+id/gender_txt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/ridgt_gray_background"
+                android:paddingBottom="2dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="2dp"
                 android:text="@string/select_gender"
                 android:textAlignment="center" />
 
@@ -241,13 +323,28 @@
 
             </View>
 
-            <Spinner
-                android:id="@+id/SP_GENDER"
-                android:layout_width="20dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/sp_gray"
-                android:entries="@array/gender"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+                android:layout_weight="5"
+                android:background="@drawable/sp_gray">
+
+                <Spinner
+                    android:id="@+id/SP_GENDER"
+                    style="@style/Widget.App.Spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/ic_arrow_drop_down_black"
+                    android:entries="@array/gender"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="5dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+            </LinearLayout>
 
 
         </LinearLayout>
@@ -268,10 +365,15 @@
             android:background="@drawable/gray_background">
 
             <TextView
+                android:id="@+id/lang_txt"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:background="@drawable/ridgt_gray_background"
+                android:paddingBottom="2dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="2dp"
                 android:text="@string/select_lang"
                 android:textAlignment="center" />
 
@@ -282,13 +384,28 @@
 
             </View>
 
-            <Spinner
-                android:id="@+id/SP_LANG"
-                android:layout_width="20dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/sp_gray"
-                android:entries="@array/gender"
-                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+                android:layout_weight="5"
+                android:background="@drawable/sp_gray">
+
+                <Spinner
+                    android:id="@+id/SP_LANG"
+                    style="@style/Widget.App.Spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/ic_arrow_drop_down_black"
+                    android:entries="@array/lang"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="5dp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+            </LinearLayout>
 
 
         </LinearLayout>
@@ -305,6 +422,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/green_background"
+        android:padding="20px"
         android:text="@string/find_doctor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/lin5"

@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Ui.FindDoctor"></activity>
+        <activity android:name=".Ui.FindDoctor" />
+        <activity android:name=".Ui.ShowDoctors"></activity>
     </application>
 
 </manifest>
