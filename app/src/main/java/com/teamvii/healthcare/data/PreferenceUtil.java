@@ -195,7 +195,6 @@ public class PreferenceUtil {
         // commit changes
         editor.commit();
 
-        Log.d( TAG, "User login session modified!" );
     }
 
     public boolean isUserLoggedIn() {
@@ -212,7 +211,6 @@ public class PreferenceUtil {
         // commit changes
         editor.commit();
 
-        Log.d( TAG, "Driver login session modified!" );
     }
 
     public boolean isDriverLoggedIn() {
