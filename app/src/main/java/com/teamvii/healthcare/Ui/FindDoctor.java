@@ -2,6 +2,7 @@ package com.teamvii.healthcare.Ui;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -9,13 +10,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.teamvii.healthcare.R;
+import com.teamvii.healthcare.data.PreferenceUtil;
 
 public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     //TODO List of item sending the number of id to select it from fk you want
     String[] SPECIALITY, GENDER, STATE, INSURANCE, LANG;
-    //TODO Strings Nmber Of Spinner will  save the number of items of spinners
     String num_SPECIALITY, num_GENDER, num_STATE, num_INSURANCE, num_LANG;
+    PreferenceUtil preferenceUtil;
     private Spinner SP_ID, SP_SPECIALITY, SP_GENDER, SP_STAT, SP_INSURANCE, SP_AREA, SP_LANG;
 
     @Override
@@ -23,13 +25,17 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_find_doctor );
 
+        preferenceUtil = new PreferenceUtil( this );
+
+
+
 
         SPECIALITY = getResources().getStringArray( R.array.speciality );
         LANG = getResources().getStringArray( R.array.lang );
         GENDER = getResources().getStringArray( R.array.gender );
         STATE = getResources().getStringArray( R.array.state );
         INSURANCE = getResources().getStringArray( R.array.insurance );
-        LANG = getResources().getStringArray( R.array.insurance );
+        LANG = getResources().getStringArray( R.array.lang );
 
         // SP_ID=findViewById( R.id.SP_ID );
         SP_SPECIALITY = findViewById( R.id.SP_SPECIALITY );
@@ -85,6 +91,7 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
         SP_INSURANCE.setOnItemSelectedListener( this );
         SP_LANG.setOnItemSelectedListener( this );
 
+
     }
 
     //TODO methos response of get number of item we weant
@@ -105,10 +112,31 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
 
         int num5 = SP_LANG.getSelectedItemPosition();
         num_LANG = Integer.toString( num5 );
-        //Toast.makeText(FindDoctor.this," num_SPECIALITY :"+num_SPECIALITY+"\n num_GENDER :"+num_GENDER+"\n num_STATE :"+num_STATE+"\n num_INSURANCE :"+num_INSURANCE+"\n num_LANG"+num_LANG,Toast.LENGTH_SHORT).show();
+       /* Toast.makeText(FindDoctor.this," "+ num_SPECIALITY+ ":" + PreferenceUtil.getSpecialityIdKey( this )
+        + "\n num_GENDER :" + PreferenceUtil.getGenderIdKey( this )
+                + "\n num_STATE :" + PreferenceUtil.getStateIdKey( this )
+                + "\n num_INSURANCE :" + PreferenceUtil.getInsuranceIdKey( this)
+                + "\n num_LANG" + PreferenceUtil.getLangIdKey( this ),Toast.LENGTH_SHORT).show();*/
+
+        preferenceUtil.setSpecialityIdKey( num_SPECIALITY );
+        preferenceUtil.setGenderIdKey( num_GENDER );
+        preferenceUtil.setStateIdKey( num_STATE );
+        preferenceUtil.setInsuranceIdKey( num_INSURANCE );
+        preferenceUtil.setLangIdKey( this, num_LANG );
+
+        Log.d( "Saved_id", " num_SPECIALITY :" + preferenceUtil.getSpecialityIdKey( this )
+                + "\n num_GENDER :" + preferenceUtil.getGenderIdKey( this )
+                + "\n num_STATE :" + preferenceUtil.getStateIdKey( this )
+                + "\n num_INSURANCE :" + preferenceUtil.getInsuranceIdKey( this )
+                + "\n num_LANG" + preferenceUtil.getLangIdKey( this ) );
 
         TextView test = (findViewById( R.id.Testtxt ));
-        test.setText( " num_SPECIALITY :" + num_SPECIALITY + "\n num_GENDER :" + num_GENDER + "\n num_STATE :" + num_STATE + "\n num_INSURANCE :" + num_INSURANCE + "\n num_LANG" + num_LANG );
+
+        test.setText( " num_SPECIALITY :" + preferenceUtil.getSpecialityIdKey( FindDoctor.this )
+                + "\n num_GENDER :" + preferenceUtil.getGenderIdKey( this )
+                + "\n num_STATE :" + preferenceUtil.getStateIdKey( this )
+                + "\n num_INSURANCE :" + preferenceUtil.getInsuranceIdKey( this )
+                + "\n num_LANG" + preferenceUtil.getLangIdKey( this ) );
 
     }
 
