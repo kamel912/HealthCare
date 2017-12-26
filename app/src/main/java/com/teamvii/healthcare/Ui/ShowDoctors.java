@@ -3,7 +3,7 @@ package com.teamvii.healthcare.Ui;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -42,6 +42,7 @@ public class ShowDoctors extends AppCompatActivity {
     private String URL_GET_DOCTOR = "http://devsinai.com/healthcare/doctors.php";
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -51,7 +52,7 @@ public class ShowDoctors extends AppCompatActivity {
 
         ListShowDoctors = findViewById( R.id.ListShowDoctors );
         ListShowDoctors.setHasFixedSize( true );
-        recyclerViewlayoutManager = new LinearLayoutManager( this );
+        recyclerViewlayoutManager = new GridLayoutManager( this, 1 );
         ListShowDoctors.setLayoutManager( recyclerViewlayoutManager );
         recyclerViewadapter = new ShowDoctorsAdapter( doctors, this );
         recyclerViewadapter.notifyDataSetChanged();
@@ -115,6 +116,8 @@ public class ShowDoctors extends AppCompatActivity {
             JSONObject json = null;
             try {
                 json = array.getJSONObject( i );
+                doctor2.setName( json.getString( "name" ) );
+
                 doctor2.setGender( json.getString( "gender" ) );
                 doctor2.setInsurance( json.getString( "insurance" ) );
 
