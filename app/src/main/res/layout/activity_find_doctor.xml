@@ -68,6 +68,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="5dp"
+                android:prompt="@string/select_speciality"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
         </LinearLayout>
 
@@ -127,6 +128,7 @@
                 android:paddingLeft="1dp"
                 android:paddingRight="1dp"
                 android:paddingTop="1dp"
+                android:prompt="@string/select_state"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
             </LinearLayout>
 
@@ -210,6 +212,7 @@
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="5dp"
+                    android:prompt="@string/select_area"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
             </LinearLayout>
@@ -276,6 +279,7 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="5dp"
+                android:prompt="@string/insurance"
                 android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
         </LinearLayout>
@@ -334,10 +338,12 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:background="@drawable/ic_arrow_drop_down_black"
+                    android:entries="@array/gender"
                     android:paddingBottom="5dp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="5dp"
+                    android:prompt="@string/select_gender"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
             </LinearLayout>
@@ -394,10 +400,12 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:background="@drawable/ic_arrow_drop_down_black"
+                    android:entries="@array/lang"
                     android:paddingBottom="5dp"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="5dp"
+                    android:prompt="@string/select_lang"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
             </LinearLayout>

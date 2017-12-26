@@ -98,7 +98,6 @@ public class MDbHelber extends SQLiteOpenHelper {
         values.put( ID_DR, id );
         values.put( USERNAME_DR, name );
         values.put( GENDER_DR, gender );
-        db.insert( TABLE_DR, null, values );
 
         long query = db.insertWithOnConflict( TABLE_DR, null, values, SQLiteDatabase.CONFLICT_REPLACE );
 
@@ -139,7 +138,6 @@ public class MDbHelber extends SQLiteOpenHelper {
         values.put( NAME_ARREA, name );
         values.put( STAT_ID_FK, state );
 
-        db.insert( TABLE_AREA, null, values );
         long query = db.insertWithOnConflict( TABLE_AREA, null, values, SQLiteDatabase.CONFLICT_REPLACE );
         db.insertWithOnConflict( TABLE_AREA, null, values, SQLiteDatabase.CONFLICT_REPLACE );
 
