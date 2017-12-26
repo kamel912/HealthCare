@@ -7,7 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static com.teamvii.healthcare.data.Contract.MashweerEntry.DATABASE_NAME;
 import static com.teamvii.healthcare.data.Contract.MashweerEntry.GENDER_DR;
@@ -58,9 +60,8 @@ public class MDbHelber extends SQLiteOpenHelper {
                 "CREATE TABLE " + TABLE_AREA + "(" +
                         ID_AREA + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         NAME_ARREA + " VARCHAR(60) , " +
-                        STAT_ID_FK + " INTEGER(60) );";
-
-        //"FOREIGN KEY("+STAT_ID_FK+") REFERENCES "+TABLE_STATES+" ("+ID_STATE+"))";
+                        STAT_ID_FK + " INTEGER ," +
+                        "FOREIGN KEY(" + STAT_ID_FK + ") REFERENCES " + TABLE_STATES + " (" + ID_STATE + ")" + ")";
 
         final String CREATE_TB_INSURANCE =
                 "CREATE TABLE " + TABLE_INSURANCE + "(" +
@@ -74,7 +75,7 @@ public class MDbHelber extends SQLiteOpenHelper {
 
         final String CREATE_TB_STATES =
                 "CREATE TABLE " + TABLE_STATES + "(" +
-                        ID_SPECIALITIES + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                        ID_STATE + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                         NAME_STATES + " VARCHAR(10))";
         sqLiteDatabase.execSQL( CREATE_TB_DOCTOR );
         sqLiteDatabase.execSQL( CREATE_TB_AREA );
@@ -146,6 +147,31 @@ public class MDbHelber extends SQLiteOpenHelper {
         db.close();
     }
 
+    public List<String> getARea() {
+        List<String> labels = new ArrayList<String>();
+
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_AREA;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery( selectQuery, null );
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                labels.add( cursor.getString( 1 ) );
+            } while (cursor.moveToNext());
+        }
+
+        // closing connection
+        cursor.close();
+        db.close();
+
+        // returning lables
+        return labels;
+    }
+
+
     public HashMap<String, String> getAreaSpinner() {
         HashMap<String, String> user = new HashMap<String, String>();
         String selectQuery = "SELECT  * FROM " + TABLE_AREA;
@@ -173,7 +199,6 @@ public class MDbHelber extends SQLiteOpenHelper {
         values.put( ID_INSURANCE, id );
         values.put( NAME_INSURANCE, name );
 
-        db.insert( TABLE_INSURANCE, null, values );
         long query = db.insertWithOnConflict( TABLE_INSURANCE, null, values, SQLiteDatabase.CONFLICT_REPLACE );
         db.insertWithOnConflict( TABLE_INSURANCE, null, values, SQLiteDatabase.CONFLICT_REPLACE );
 
