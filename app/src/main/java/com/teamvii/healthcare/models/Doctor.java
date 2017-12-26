@@ -41,16 +41,6 @@ public class Doctor {
     @Expose
     public String insurance;
 
-    public Doctor(String name, String languageEnglish, String languageArabic, String speciality, String gender, String areas, String state, String insurance) {
-        this.name = name;
-        this.languageEnglish = languageEnglish;
-        this.languageArabic = languageArabic;
-        this.speciality = speciality;
-        this.gender = gender;
-        this.areas = areas;
-        this.state = state;
-        this.insurance = insurance;
-    }
 
     public String toString() {
         String string =
