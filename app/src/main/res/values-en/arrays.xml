@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <array name="speciality">
+        <item>@string/select_speciality</item>
+        <item>@string/Ear</item>
+        <item>@string/Nose</item>
+        <item>@string/Throat</item>
+
+    </array>
+    //lang--2
+    <array name="lang">
+        <item>@string/select_lang</item>
+        <item>@string/Arabic</item>
+        <item>@string/English</item>
+
+    </array>
+    //gender--3
+    <array name="gender">
+        <item>@string/select_gender</item>
+        <item>@string/Male</item>
+        <item>@string/Female</item>
+
+    </array>
+    //state--4
+    <array name="state">
+        <item>@string/select_state</item>
+        <item>@string/Ein</item>
+        <item>@string/Abu_Dhabi</item>
+        <item>@string/Dubai</item>
+
+    </array>
+
+    //insurance--5
+    <array name="insurance">
+        <item>@string/insurance</item>
+        <item>@string/Full_Insurance</item>
+        <item>@string/Partial_Insurance</item>
+    </array>
+
+</resources>
