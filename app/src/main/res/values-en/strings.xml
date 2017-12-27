@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Health Care</string>
+    <string name="find_doctor">find your doctor</string>
+    <string name="welcom">Welcom :</string>
+    <string name="select_speciality">select spiciality</string>
+    <string name="select_state">select your state</string>
+    <string name="select_area">Select your area</string>
+    <string name="insurance">Insurance</string>
+    <string name="select_gender">Select gender</string>
+    <string name="select_lang">Select Language</string>
+
+    //TODO Source of list Spinner
+
+    <string name="Ear">Ear</string>
+    <string name="Nose">Nose</string>
+    <string name="Throat">Throat</string>
+    // //lang--2
+    <string name="Arabic">Arabic</string>
+    <string name="English">English</string>
+    //gender--3
+    <string name="Male">Male</string>
+    <string name="Female">Female</string>
+    //state--4
+
+    <string name="Ein">Ein</string>
+    <string name="Abu_Dhabi">Abu Dhabi</string>
+    <string name="Dubai">Dubai</string>
+
+    <string name="Full_Insurance">Full Insurance</string>
+    <string name="Partial_Insurance">Partial Insurance</string>
+
+    <string name="moon">Moon</string>
+
+    //for list show doctors
+    <string name="speciality_item">Speciality</string>
+    <string name="stat_item">Stat</string>
+    <string name="insurance_item">Insurance</string>
+
+
+</resources>

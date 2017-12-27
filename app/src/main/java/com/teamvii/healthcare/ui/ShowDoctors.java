@@ -1,4 +1,4 @@
-package com.teamvii.healthcare.Ui;
+package com.teamvii.healthcare.ui;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;

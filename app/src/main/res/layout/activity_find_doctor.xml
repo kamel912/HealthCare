@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorMainBackground"
     android:orientation="vertical"
-    tools:context="com.teamvii.healthcare.Ui.FindDoctor">
+    tools:context="com.teamvii.healthcare.ui.FindDoctor">
 
     <TextView
         android:id="@+id/textViewPassengerLabel"

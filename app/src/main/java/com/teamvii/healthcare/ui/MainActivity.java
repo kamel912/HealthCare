@@ -1,4 +1,4 @@
-package com.teamvii.healthcare.Ui;
+package com.teamvii.healthcare.ui;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -57,7 +57,7 @@ public class Doctor {
                 "Name : " + name +
                         "language : " + languageEnglish +
                         "arabic :" + languageArabic +
-                        " spesiality : " + speciality +
+                        " speciality : " + speciality +
                         " gender :" + gender +
                         " areas " + areas +
                         " state " + state +

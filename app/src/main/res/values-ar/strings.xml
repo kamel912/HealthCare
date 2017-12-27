@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Health Care</string>
+    <string name="find_doctor">ابحث عن طبيبط</string>
+    <string name="welcom">مرحبا :</string>
+    <string name="select_speciality">اختر التخصص</string>
+    <string name="select_state">اختر المحافظه</string>
+    <string name="select_area">اختر المنطقه</string>
+    <string name="insurance">التامين</string>
+    <string name="select_gender">الجنس</string>
+    <string name="select_lang">اختر اللغه</string>
+
+    //TODO Source of list Spinner
+    //speciality--1
+    <string name="Ear">انف</string>
+    <string name="Nose">اذن</string>
+    <string name="Throat">حنجره</string>
+    // //lang--2
+    <string name="Arabic">عربي</string>
+    <string name="English">انجليزي</string>
+    //gender--3
+    <string name="Male">ذكر</string>
+    <string name="Female">انثي</string>
+    //state--4
+
+    <string name="Ein">العين</string>
+    <string name="Abu_Dhabi">ابوظبي</string>
+    <string name="Dubai">دبي</string>
+
+    <string name="Full_Insurance">تامين كامل</string>
+    <string name="Partial_Insurance">تامين جزئي</string>
+
+    //for list show doctors
+    <string name="speciality_item">التخصص</string>
+    <string name="stat_item">Stat</string>
+    <string name="insurance_item">Insurance</string>
+
+
+</resources>

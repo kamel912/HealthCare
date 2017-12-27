@@ -1,4 +1,4 @@
-package com.teamvii.healthcare.Ui;
+package com.teamvii.healthcare.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.teamvii.healthcare.R;
-import com.teamvii.healthcare.data.PreferenceUtil;
+import com.teamvii.healthcare.Utils.PreferenceUtil;
 
 public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 

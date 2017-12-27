@@ -1,4 +1,4 @@
-package com.teamvii.healthcare.data;
+package com.teamvii.healthcare.Utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

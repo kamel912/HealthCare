@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/HealthCare.iml" filepath="$PROJECT_DIR$/HealthCare.iml" />
-      <module fileurl="file://$PROJECT_DIR$/HealthCare-master.iml" filepath="$PROJECT_DIR$/HealthCare-master.iml" />
+      <module fileurl="file://I:\AndroidStudio\projects\HealthCare\HealthCare.iml" filepath="I:\AndroidStudio\projects\HealthCare\HealthCare.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
