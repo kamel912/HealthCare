@@ -3,6 +3,7 @@ package com.teamvii.healthcare.data;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -24,6 +25,7 @@ import static com.teamvii.healthcare.data.Contract.MashweerEntry.NAME_INSURANCE;
 import static com.teamvii.healthcare.data.Contract.MashweerEntry.NAME_SPECIALITIES;
 import static com.teamvii.healthcare.data.Contract.MashweerEntry.NAME_STATES;
 import static com.teamvii.healthcare.data.Contract.MashweerEntry.SPECIALITY_DR;
+import static com.teamvii.healthcare.data.Contract.MashweerEntry.STATUS_AREA;
 import static com.teamvii.healthcare.data.Contract.MashweerEntry.STAT_ID_FK;
 import static com.teamvii.healthcare.data.Contract.MashweerEntry.TABLE_AREA;
 import static com.teamvii.healthcare.data.Contract.MashweerEntry.TABLE_DR;
@@ -50,33 +52,41 @@ public class MDbHelber extends SQLiteOpenHelper {
         //TODO creating table of DR
         final String CREATE_TB_DOCTOR =
                 "CREATE TABLE " + TABLE_DR + "(" +
-                        ID_DR + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        USERNAME_DR + " VARCHAR(60) , " +
-                        INSURANCE_DR + " VARCHAR(100) , " +
+                        ID_DR + " INTEGER PRIMARY KEY , " +
+                        USERNAME_DR + " VARCHAR(60) UNIQUE , " +
+                        INSURANCE_DR + " VARCHAR(100) UNIQUE , " +
+                        // STATUS_DR + " TINYINT,"+
                         SPECIALITY_DR + " TEXT," +
                         GENDER_DR + " VARCHAR(10))";
 
         final String CREATE_TB_AREA =
                 "CREATE TABLE " + TABLE_AREA + "(" +
-                        ID_AREA + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        NAME_ARREA + " VARCHAR(60) , " +
+                        ID_AREA + " INTEGER PRIMARY KEY , " +
+                        NAME_ARREA + " VARCHAR(60) UNIQUE, " +
+                        // STATUS_AREA + " TINYINT,"+
                         STAT_ID_FK + " INTEGER ," +
                         "FOREIGN KEY(" + STAT_ID_FK + ") REFERENCES " + TABLE_STATES + " (" + ID_STATE + ")" + ")";
 
         final String CREATE_TB_INSURANCE =
                 "CREATE TABLE " + TABLE_INSURANCE + "(" +
-                        ID_INSURANCE + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        NAME_INSURANCE + " VARCHAR(10))";
+                        ID_INSURANCE + " INTEGER PRIMARY KEY UNIQUE, " +
+                        NAME_INSURANCE + " VARCHAR(10) UNIQUE);";
+        // STATUS_INSURANCE + " TINYINT
 
         final String CREATE_TB_SPECIALITIES =
                 "CREATE TABLE " + TABLE_SPECIALITIES + "(" +
                         ID_SPECIALITIES + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        NAME_SPECIALITIES + " VARCHAR(10))";
+                        NAME_SPECIALITIES + " VARCHAR(10) UNIQUE" +
+                        // STATUS_SPECIALITIES + " TINYINT" +
+                        ");";
 
         final String CREATE_TB_STATES =
                 "CREATE TABLE " + TABLE_STATES + "(" +
                         ID_STATE + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                        NAME_STATES + " VARCHAR(10))";
+                        NAME_STATES + " VARCHAR(10) UNIQUE" +
+                        // STATUS_STATES + " TINYINT" +
+                        ");";
+
         sqLiteDatabase.execSQL( CREATE_TB_DOCTOR );
         sqLiteDatabase.execSQL( CREATE_TB_AREA );
         sqLiteDatabase.execSQL( CREATE_TB_INSURANCE );
@@ -143,6 +153,28 @@ public class MDbHelber extends SQLiteOpenHelper {
 
         Log.d( TAG, "add area list inserted into sqlite: " + query );
         db.close();
+    }
+
+    public boolean addName(String name, int status) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put( NAME_ARREA, name );
+        contentValues.put( STATUS_AREA, status );
+
+
+        db.insert( TABLE_AREA, null, contentValues );
+        db.close();
+        return true;
+    }
+
+    public boolean updateAreaStatus(int id, int status) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put( STATUS_AREA, status );
+        db.update( TABLE_AREA, contentValues, ID_AREA + "=" + id, null );
+        db.close();
+        return true;
     }
 
     public List<String> getARea() {
@@ -235,6 +267,35 @@ public class MDbHelber extends SQLiteOpenHelper {
 
         Log.d( TAG, "add specialities list inserted into sqlite: " + query );
         db.close();
+    }
+
+    public String fetchFromAِrae(String inputText) throws SQLException {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor row = null;
+        String query = "SELECT * FROM " + TABLE_AREA;
+        if (inputText == null || inputText.length() == 0) {
+            row = db.rawQuery( query, null );
+        } else {
+            query = "SELECT " + ID_AREA + " FROM areas WHERE name  ='" + inputText + "'";
+            row = db.rawQuery( query, null );
+        }
+        if (row != null) {
+            row.moveToFirst();
+        }
+        Log.d( "jjjjjj", String.valueOf( row ) );
+
+        return null;
+    }
+
+    public int GetDeptID(String Dept) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.query( TABLE_AREA, new String[]{ID_AREA + " as id", NAME_ARREA},
+                NAME_ARREA + "=?", new String[]{Dept}, null, null, null );
+        //Cursor c=db.rawQuery("SELECT "+colDeptID+" as _id FROM "+deptTable+"
+        //WHERE "+colDeptName+"=?", new String []{Dept});
+        c.moveToFirst();
+        return c.getInt( c.getColumnIndex( ID_AREA ) );
     }
 
     public HashMap<String, String> getSpecialitiesSpinner() {

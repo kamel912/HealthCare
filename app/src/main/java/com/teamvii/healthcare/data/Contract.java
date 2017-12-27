@@ -26,23 +26,31 @@ public class Contract {
         public static final String INSURANCE_DR = "insurance";
         public static final String GENDER_DR = "gender";
         public static final String SPECIALITY_DR = "spiciality";
+        public static final String STATUS_DR = "status_doctor";
+
         //TODO table areas
         public static final String TABLE_AREA = "areas";
         public static final String ID_AREA = "id";
         public static final String NAME_ARREA = "name";
         public static final String STAT_ID_FK = "state_id";
+        public static final String STATUS_AREA = "status_area";
         //TODO table insurances
         public static final String TABLE_INSURANCE = "insurances";
         public static final String ID_INSURANCE = "id";
         public static final String NAME_INSURANCE = "name";
+        public static final String STATUS_INSURANCE = "status_insurances";
         //TODO table specialities
         public static final String TABLE_SPECIALITIES = "specialities";
         public static final String ID_SPECIALITIES = "id";
         public static final String NAME_SPECIALITIES = "name";
+        public static final String STATUS_SPECIALITIES = "status_specialities";
+
         //TODO table states
         public static final String TABLE_STATES = "states";
         public static final String ID_STATE = "id";
         public static final String NAME_STATES = "name";
+        public static final String STATUS_STATES = "status_states";
+
 
 
     }

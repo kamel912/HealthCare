@@ -81,6 +81,7 @@ public class DbGetSpinnerBackend extends DbObject {
         return allSpinner;
     }
 
+
     public String[] getSpecialtySP() {
 
         String query = "Select * from " + TABLE_SPECIALITIES + "";
