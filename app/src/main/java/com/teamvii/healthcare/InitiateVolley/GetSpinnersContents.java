@@ -11,6 +11,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.teamvii.healthcare.data.MDbHelber;
+import com.teamvii.healthcare.data.PreferenceUtil;
+import com.teamvii.healthcare.data.SetLang;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,6 +21,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.teamvii.healthcare.data.Contract.MashweerEntry.URL_SYNC;
 import static com.teamvii.healthcare.data.Contract.MashweerEntry.URL_SYNC_AREA;
 import static com.teamvii.healthcare.data.Contract.MashweerEntry.URL_SYNC_DR;
 import static com.teamvii.healthcare.data.Contract.MashweerEntry.URL_SYNC_INSURANCE;
@@ -34,7 +37,10 @@ public class GetSpinnersContents {
     MDbHelber mDbHelber;
     RequestQueue requestQueue;
     Context context;
+    String LANG;
 
+    PreferenceUtil preferenceUtil;
+    SetLang setLang;
     public GetSpinnersContents(Context context) {
         this.context = context;
     }
@@ -42,6 +48,7 @@ public class GetSpinnersContents {
     ///TODO part of state data spinner////////////////////////////////////////////////////
     //===============================getDoctor==============================================================
     public void getDoctor(Context context) {
+
         mDbHelber = new MDbHelber( context );
         StringRequest stringRequest = new StringRequest( Request.Method.POST, URL_SYNC_DR,
                 new Response.Listener<String>() {
@@ -89,7 +96,10 @@ public class GetSpinnersContents {
     //=================getStates============================================================================
     public void getStates(Context context) {
         mDbHelber = new MDbHelber( context );
-        StringRequest stringRequest = new StringRequest( Request.Method.POST, URL_SYNC_STATES,
+        setLang = new SetLang( context );
+        preferenceUtil = new PreferenceUtil( context );
+
+        StringRequest stringRequest = new StringRequest( Request.Method.GET, URL_SYNC + preferenceUtil.getLANG_KEY( context ) + URL_SYNC_STATES,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -122,8 +132,9 @@ public class GetSpinnersContents {
                 json = array.getJSONObject( i );
                 String id = json.getString( "id" );
                 String name = json.getString( "name" );
+
                 mDbHelber.addStatesSpinner( id, name );
-                Log.d( TAG, "value from States server : " + id + "  " + name + "  " );
+                Log.d( TAG, "value from States server : " + id + "  " + name );
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -134,7 +145,10 @@ public class GetSpinnersContents {
     //===================================getAreas=================================================
     public void getAreas(Context context) {
         mDbHelber = new MDbHelber( context );
-        StringRequest stringRequest = new StringRequest( Request.Method.POST, URL_SYNC_AREA,
+        setLang = new SetLang( context );
+        preferenceUtil = new PreferenceUtil( context );
+
+        StringRequest stringRequest = new StringRequest( Request.Method.POST, URL_SYNC + preferenceUtil.getLANG_KEY( context ) + URL_SYNC_AREA,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -167,9 +181,8 @@ public class GetSpinnersContents {
                 json = array.getJSONObject( i );
                 String id = json.getString( "id" );
                 String name = json.getString( "name" );
-                String gender = json.getString( "state_id" );
-                mDbHelber.addAreaSpinner( id, name, gender );
-                Log.d( TAG, "value from Area server : " + id + "  " + name + "  " + gender );
+                mDbHelber.addAreaSpinner( id, name );
+                Log.d( TAG, "value from Area server : " + id + "  " + name );
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -180,7 +193,10 @@ public class GetSpinnersContents {
     //==================================getInsurance=============================================
     public void getInsurance(Context context) {
         mDbHelber = new MDbHelber( context );
-        StringRequest stringRequest = new StringRequest( Request.Method.POST, URL_SYNC_INSURANCE,
+        setLang = new SetLang( context );
+        preferenceUtil = new PreferenceUtil( context );
+
+        StringRequest stringRequest = new StringRequest( Request.Method.GET, URL_SYNC + preferenceUtil.getLANG_KEY( context ) + URL_SYNC_INSURANCE,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -213,8 +229,9 @@ public class GetSpinnersContents {
                 json = array.getJSONObject( i );
                 String id = json.getString( "id" );
                 String name = json.getString( "name" );
+
                 mDbHelber.addInsurancesSpinner( id, name );
-                Log.d( TAG, "value insurances from server : " + id + "  " + name + "  " );
+                Log.d( TAG, "value insurances from server : " + id + "  " + name );
 
             } catch (JSONException e) {
                 e.printStackTrace();
@@ -225,7 +242,10 @@ public class GetSpinnersContents {
     //==============================getSpecialities===============================================
     public void getSpecialities(Context context) {
         mDbHelber = new MDbHelber( context );
-        StringRequest stringRequest = new StringRequest( Request.Method.POST, URL_SYNC_SPECIALITIES,
+        setLang = new SetLang( context );
+        preferenceUtil = new PreferenceUtil( context );
+
+        StringRequest stringRequest = new StringRequest( Request.Method.GET, URL_SYNC + preferenceUtil.getLANG_KEY( context ) + URL_SYNC_SPECIALITIES,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -259,7 +279,7 @@ public class GetSpinnersContents {
                 String id = json.getString( "id" );
                 String name = json.getString( "name" );
                 mDbHelber.addSpecialitiesSpinner( id, name );
-                Log.d( TAG, "value specialities from server : " + id + "  " + name + "  " );
+                Log.d( TAG, "value specialities from server : " + URL_SYNC + preferenceUtil.getLANG_KEY( context ) + URL_SYNC_SPECIALITIES + "  " );
 
             } catch (JSONException e) {
                 e.printStackTrace();

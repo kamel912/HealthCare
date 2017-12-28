@@ -9,6 +9,10 @@ import android.util.Log;
  */
 
 public class PreferenceUtil {
+
+    public static final String USER_ID_KEY = "user_id";
+    public static final String CHAGE_LANG_KEY = "lang_key";
+
     public static final String DOCTOR_ID_KEY = "doctor_id";
     public static final String LANG_ID_KEY = "lang_id";
     public static final String SPECIALITY_ID_KEY = "spiciality_id";
@@ -20,7 +24,7 @@ public class PreferenceUtil {
     // Shared preferences file name
     private static final String TAG_TOKEN = "tagtoken";
     private static final String KEY_IS_USER_LOGGEDIN = "isUserLoggedIn";
-    private static final String KEY_IS_DRIVER_LOGGEDIN = "isDoctorLoggedIn";
+    private static final String KEY_IS_DOCTOR_LOGGEDIN = "isDoctorLoggedIn";
     private static final String SHARED_PREF_NAME = "save_contents";
     private static String TAG = PreferenceUtil.class.getSimpleName();
     private static PreferenceUtil mInstance;
@@ -44,6 +48,31 @@ public class PreferenceUtil {
         editor = pref.edit();
     }
 
+
+    ////////////
+    public static void setUserId(Context context, String s) {
+        SharedPreferences sp = context.getSharedPreferences( SHARED_PREF_NAME, Context.MODE_PRIVATE );
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString( USER_ID_KEY, s );
+        editor.commit();
+        editor.apply();
+    }
+
+    public static void resetUserId(Context context) {
+        SharedPreferences sp = context.getSharedPreferences( SHARED_PREF_NAME, Context.MODE_PRIVATE );
+        SharedPreferences.Editor editor = sp.edit();
+        editor.remove( USER_ID_KEY );
+        editor.apply();
+    }
+
+    public static String getUserId(Context context) {
+        String t;
+        SharedPreferences sp = context.getSharedPreferences( SHARED_PREF_NAME, Context.MODE_PRIVATE );
+
+        return sp.getString( USER_ID_KEY, null );
+    }
+
+    /////////////
     public static void setDoctorId(Context context, String s) {
         SharedPreferences sp = context.getSharedPreferences( SHARED_PREF_NAME, Context.MODE_PRIVATE );
         SharedPreferences.Editor editor = sp.edit();
@@ -96,6 +125,21 @@ public class PreferenceUtil {
         return mInstance;
     }
 
+    public void setLANG_KEY(String s) {
+        editor.putString( CHAGE_LANG_KEY, s );
+        editor.commit();
+    }
+
+    public void resetLANG_KEY(Context context) {
+        editor = pref.edit();
+        editor.remove( CHAGE_LANG_KEY );
+        editor.apply();
+    }
+
+    public String getLANG_KEY(Context context) {
+
+        return pref.getString( CHAGE_LANG_KEY, null );
+    }
     ///////////////
     public void setLangIdKey(Context context, String s) {
         editor.putString( LANG_ID_KEY, s );
@@ -206,7 +250,7 @@ public class PreferenceUtil {
     //TODO save loging driver========
     public void setLoginDriver(boolean isLoggedIn) {
 
-        editor.putBoolean( KEY_IS_DRIVER_LOGGEDIN, isLoggedIn );
+        editor.putBoolean( KEY_IS_DOCTOR_LOGGEDIN, isLoggedIn );
 
         // commit changes
         editor.commit();
@@ -214,7 +258,7 @@ public class PreferenceUtil {
     }
 
     public boolean isDriverLoggedIn() {
-        return pref.getBoolean( KEY_IS_DRIVER_LOGGEDIN, false );
+        return pref.getBoolean( KEY_IS_DOCTOR_LOGGEDIN, false );
     }
 
     //this method will save the device token to shared preferences

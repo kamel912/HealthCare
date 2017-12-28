@@ -1,5 +1,19 @@
 <resources>
     <string name="app_name">Health Care</string>
+
+    //log in
+    <string name="hint_password">كلمة السر</string>
+    <string name="hint_name">الاسم يالكامل</string>
+    <string name="hint_email">البريد</string>
+    <string name="btn_login">دخول</string>
+    <string name="btn_register">تسجيل</string>
+    <string name="btn_link_to_register">لاتملك حساب؟ سجل الان</string>
+    <string name="btn_link_to_login">بالفعل املك حساب تسجيل دخول</string>
+    <string name="welcome">مرحيا</string>
+    <string name="btn_logout">تسجيل خروج</string>
+    <string name="name">الاسم بالكامل</string>
+
+    //find doctor
     <string name="find_doctor">ابحث عن طبيبط</string>
     <string name="welcom">مرحبا :</string>
     <string name="select_speciality">اختر التخصص</string>

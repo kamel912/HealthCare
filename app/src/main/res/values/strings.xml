@@ -1,4 +1,5 @@
 <resources>
     <string name="stat_item">Stat</string>
     <string name="insurance_item">Insurance</string>
+    <string name="chk_en">check_en</string>
 </resources>
