@@ -15,12 +15,17 @@ public class DbObject {
     public DbObject(Context context) {
         dbHelper = new MDbHelber( context );
         this.db = dbHelper.getReadableDatabase();
+
     }
 
     public SQLiteDatabase getDbConnection() {
         return this.db;
     }
 
+    public SQLiteDatabase writeDbConnection() {
+
+        return dbHelper.getWritableDatabase();
+    }
     public void closeDbConnection() {
         if (this.db != null) {
             this.db.close();

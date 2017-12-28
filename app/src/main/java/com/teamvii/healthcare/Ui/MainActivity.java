@@ -19,6 +19,7 @@ import com.android.volley.toolbox.Volley;
 import com.teamvii.healthcare.InitiateVolley.GetSpinnersContents;
 import com.teamvii.healthcare.R;
 import com.teamvii.healthcare.connection.ApiInterface;
+import com.teamvii.healthcare.data.DbGetSpinnerBackend;
 import com.teamvii.healthcare.data.MDbHelber;
 import com.teamvii.healthcare.data.PreferenceUtil;
 
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     Context context;
     String LANG;
     PreferenceUtil preferenceUtil;
+    DbGetSpinnerBackend dbGetSpinnerBackend;
     private ApiInterface apiInterface;
     private Switch langSwitch;
 
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         mDbHelber = new MDbHelber( this );
+        dbGetSpinnerBackend = new DbGetSpinnerBackend( this );
         preferenceUtil = new PreferenceUtil( this );
 
         setContentView( R.layout.activity_main );

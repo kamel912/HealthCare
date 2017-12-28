@@ -1,11 +1,14 @@
 package com.teamvii.healthcare.data;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import java.util.ArrayList;
 
+import static com.teamvii.healthcare.data.Contract.MashweerEntry.ID_AREA;
 import static com.teamvii.healthcare.data.Contract.MashweerEntry.NAME_AREA_AR;
 import static com.teamvii.healthcare.data.Contract.MashweerEntry.NAME_AREA_EN;
 import static com.teamvii.healthcare.data.Contract.MashweerEntry.NAME_INSURANCE_AR;
@@ -46,6 +49,7 @@ public class DbGetSpinnerBackend extends DbObject {
         language = preferenceUtil.getLANG_KEY( con );
     }
 
+    ///////////////////
     public String[] getAreaSP() {
 
         String[] allSpinner;
@@ -85,6 +89,29 @@ public class DbGetSpinnerBackend extends DbObject {
         return allSpinner;
     }
 
+    public void addAreaSpinner(String id, String name) {
+
+        SQLiteDatabase db = this.writeDbConnection();
+        ContentValues values = new ContentValues();
+
+        if (language.contains( "ar" )) {
+            values.put( ID_AREA, id );
+            values.put( NAME_AREA_AR, name );
+        } else if (language.contains( "en" )) {
+            values.put( ID_AREA, id );
+            values.put( NAME_AREA_EN, name );
+        }
+
+        long query = db.insertWithOnConflict( TABLE_AREA, null, values, SQLiteDatabase.CONFLICT_REPLACE );
+        db.insertWithOnConflict( TABLE_AREA, null, values, SQLiteDatabase.CONFLICT_REPLACE );
+
+        Log.d( TAG, "add area list inserted into sqlite: " + query );
+        Log.d( TAG, "testing_lang1=:" + language );
+
+        db.close();
+    }
+
+    //////////////////
     public String[] getSpialitySP() {
 
         String query = "Select * from " + TABLE_SPECIALITIES + "";
