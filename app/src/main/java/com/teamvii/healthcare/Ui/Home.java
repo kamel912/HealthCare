@@ -46,7 +46,6 @@ public class Home extends AppCompatActivity {
 
         } );
     }
-
     public void ENeselevtion(View view) {
 
         setLang.setLang( "ar" );

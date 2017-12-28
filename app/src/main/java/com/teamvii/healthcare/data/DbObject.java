@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
  */
 
 public class DbObject {
+    public static PreferenceUtil preferenceUtil;
     private static MDbHelber dbHelper;
     private SQLiteDatabase db;
 

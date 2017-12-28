@@ -1,13 +1,11 @@
 package com.teamvii.healthcare.data;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.util.Log;
 
 import java.util.ArrayList;
 
-import static android.content.Context.MODE_PRIVATE;
 import static com.teamvii.healthcare.data.Contract.MashweerEntry.NAME_AREA_AR;
 import static com.teamvii.healthcare.data.Contract.MashweerEntry.NAME_AREA_EN;
 import static com.teamvii.healthcare.data.Contract.MashweerEntry.NAME_INSURANCE_AR;
@@ -37,20 +35,22 @@ public class DbGetSpinnerBackend extends DbObject {
     ArrayList<String> spinnerContentgetSpecialtySP;
     ArrayList<String> spinnerContentgetStatesSP;
     ArrayList<String> spinnerContentgetLangSP;
+    PreferenceUtil preferenceUtil;
+    String language;
 
 
     public DbGetSpinnerBackend(Context context) {
         super( context );
         this.con = context;
+        preferenceUtil = new PreferenceUtil( con );
+        language = preferenceUtil.getLANG_KEY( con );
     }
 
     public String[] getAreaSP() {
 
         String[] allSpinner;
-        SharedPreferences preferences = con.getSharedPreferences( "save_contents",
-                MODE_PRIVATE );
-        String ff = preferences.getString( "lang_key", null );
-        if (ff.contains( "ar" )) {
+
+        if (language.contains( "ar" )) {
             String query = "Select * from " + TABLE_AREA + "";
             Cursor cursor = this.getDbConnection().rawQuery( query, null );
             spinnerContentgetAreaSP = new ArrayList<String>();
@@ -63,7 +63,7 @@ public class DbGetSpinnerBackend extends DbObject {
             cursor.close();
 
 
-        } else if (ff.contains( "en" )) {
+        } else if (language.contains( "en" )) {
             String query = "Select * from " + TABLE_AREA + "";
             Cursor cursor = this.getDbConnection().rawQuery( query, null );
             spinnerContentgetAreaSP = new ArrayList<String>();
@@ -73,7 +73,7 @@ public class DbGetSpinnerBackend extends DbObject {
                     spinnerContentgetAreaSP.add( word );
                 } while (cursor.moveToNext());
             }
-            Log.d( TAG, "testing_lang=:" + ff );
+            Log.d( TAG, "testing_lang=:" + language );
 
             cursor.close();
 
@@ -107,10 +107,8 @@ public class DbGetSpinnerBackend extends DbObject {
     public String[] getInsuranceSP() {
         String[] allSpinner;
         String query = "Select * from " + TABLE_INSURANCE + "";
-        SharedPreferences preferences = con.getSharedPreferences( "save_contents",
-                MODE_PRIVATE );
-        String ff = preferences.getString( "lang_key", null );
-        if (ff.contains( "ar" )) {
+
+        if (language.contains( "ar" )) {
             Cursor cursor = this.getDbConnection().rawQuery( query, null );
             spinnerContentgetInsuranceSP = new ArrayList<String>();
             if (cursor.moveToFirst()) {
@@ -122,7 +120,7 @@ public class DbGetSpinnerBackend extends DbObject {
             cursor.close();
 
 
-        } else if (ff.contains( "en" )) {
+        } else if (language.contains( "en" )) {
 
             Cursor cursor = this.getDbConnection().rawQuery( query, null );
             spinnerContentgetInsuranceSP = new ArrayList<String>();
@@ -148,10 +146,8 @@ public class DbGetSpinnerBackend extends DbObject {
 
         String[] allSpinner;
         String query = "Select * from " + TABLE_SPECIALITIES + "";
-        SharedPreferences preferences = con.getSharedPreferences( "save_contents",
-                MODE_PRIVATE );
-        String ff = preferences.getString( "lang_key", null );
-        if (ff.contains( "ar" )) {
+
+        if (language.contains( "ar" )) {
             Cursor cursor = this.getDbConnection().rawQuery( query, null );
             spinnerContentgetSpecialtySP = new ArrayList<String>();
             if (cursor.moveToFirst()) {
@@ -163,7 +159,7 @@ public class DbGetSpinnerBackend extends DbObject {
             cursor.close();
 
 
-        } else if (ff.contains( "en" )) {
+        } else if (language.contains( "en" )) {
 
             Cursor cursor = this.getDbConnection().rawQuery( query, null );
             spinnerContentgetSpecialtySP = new ArrayList<String>();
@@ -187,10 +183,8 @@ public class DbGetSpinnerBackend extends DbObject {
     public String[] getStatesSp() {
         String[] allSpinner;
         String query = "Select * from " + TABLE_STATES + "";
-        SharedPreferences preferences = con.getSharedPreferences( "save_contents",
-                MODE_PRIVATE );
-        String ff = preferences.getString( "lang_key", null );
-        if (ff.contains( "ar" )) {
+
+        if (language.contains( "ar" )) {
             Cursor cursor = this.getDbConnection().rawQuery( query, null );
             spinnerContentgetStatesSP = new ArrayList<String>();
             if (cursor.moveToFirst()) {
@@ -200,11 +194,9 @@ public class DbGetSpinnerBackend extends DbObject {
                 } while (cursor.moveToNext());
             }
             cursor.close();
-            // allSpinner = new String[spinnerContentgetStatesSP.size()];
-            /// allSpinner = spinnerContentgetStatesSP.toArray( allSpinner );
 
 
-        } else if (ff.contains( "en" )) {
+        } else if (language.contains( "en" )) {
 
             Cursor cursor = this.getDbConnection().rawQuery( query, null );
             spinnerContentgetStatesSP = new ArrayList<String>();
@@ -228,10 +220,8 @@ public class DbGetSpinnerBackend extends DbObject {
     public String[] getLangSp() {
         String[] allSpinner;
         String query = "Select * from " + TABLE_LANG + "";
-        SharedPreferences preferences = con.getSharedPreferences( "save_contents",
-                MODE_PRIVATE );
-        String ff = preferences.getString( "lang_key", null );
-        if (ff.contains( "ar" )) {
+
+        if (language.contains( "ar" )) {
             Cursor cursor = this.getDbConnection().rawQuery( query, null );
             spinnerContentgetLangSP = new ArrayList<String>();
             if (cursor.moveToFirst()) {
@@ -243,7 +233,7 @@ public class DbGetSpinnerBackend extends DbObject {
             cursor.close();
 
 
-        } else if (ff.contains( "en" )) {
+        } else if (language.contains( "en" )) {
 
             Cursor cursor = this.getDbConnection().rawQuery( query, null );
             spinnerContentgetLangSP = new ArrayList<String>();

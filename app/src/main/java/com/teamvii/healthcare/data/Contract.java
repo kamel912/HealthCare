@@ -1,6 +1,5 @@
 package com.teamvii.healthcare.data;
 
-import android.content.Context;
 import android.provider.BaseColumns;
 
 
@@ -10,14 +9,11 @@ import android.provider.BaseColumns;
 
 public class Contract {
 
-    Context context;
 
     //TODO calass for  all public trasnfer data
     public static class MashweerEntry implements BaseColumns {
 
-
         public static final String URL_SYNC = "http://devsinai.com/healthcare/";
-
 
 
         public static final String URL_SYNC_DR = "http://devsinai.com/healthcare/sync/syncDoctors.php";

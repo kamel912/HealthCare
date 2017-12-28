@@ -77,13 +77,13 @@ public class MDbHelber extends SQLiteOpenHelper {
     private static final int SCHEMA = 1;
     private static final String TAG = MDbHelber.class.getSimpleName();
     String languaqe;
-    SetLang setLang;
     Context con;
-
-
+    PreferenceUtil preferenceUtil;
     public MDbHelber(Context context) {
         super( context, DATABASE_NAME, null, SCHEMA );
         con = context;
+        preferenceUtil = new PreferenceUtil( con );
+        languaqe = preferenceUtil.getLANG_KEY( con );
     }
 
     @Override
@@ -220,17 +220,14 @@ public class MDbHelber extends SQLiteOpenHelper {
 
 
     public void addAreaSpinner(String id, String name) {
-        setLang = new SetLang( con );
-        SharedPreferences preferences = con.getSharedPreferences( "save_contents",
-                MODE_PRIVATE );
-        String ff = preferences.getString( "lang_key", null );
+
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        if (ff.contains( "ar" )) {
+        if (languaqe.contains( "ar" )) {
             values.put( ID_AREA, id );
             values.put( NAME_AREA_AR, name );
-        } else if (ff.contains( "en" )) {
+        } else if (languaqe.contains( "en" )) {
             values.put( ID_AREA, id );
             values.put( NAME_AREA_EN, name );
         }
@@ -313,14 +310,11 @@ public class MDbHelber extends SQLiteOpenHelper {
     //TODO With spinner insurances
     public void addInsurancesSpinner(String id, String name) {
         SQLiteDatabase db = this.getWritableDatabase();
-        SharedPreferences preferences = con.getSharedPreferences( "save_contents",
-                MODE_PRIVATE );
-        String ff = preferences.getString( "lang_key", null );
         ContentValues values = new ContentValues();
-        if (ff.contains( "ar" )) {
+        if (languaqe.contains( "ar" )) {
             values.put( ID_INSURANCE, id );
             values.put( NAME_INSURANCE_AR, name );
-        } else if (ff.contains( "en" )) {
+        } else if (languaqe.contains( "en" )) {
             values.put( ID_INSURANCE, id );
             values.put( NAME_INSURANCE_EN, name );
         }
@@ -333,14 +327,11 @@ public class MDbHelber extends SQLiteOpenHelper {
 
     public void addStatesSpinner(String id, String name) {
         SQLiteDatabase db = this.getWritableDatabase();
-        SharedPreferences preferences = con.getSharedPreferences( "save_contents",
-                MODE_PRIVATE );
-        String ff = preferences.getString( "lang_key", null );
         ContentValues values = new ContentValues();
-        if (ff.contains( "ar" )) {
+        if (languaqe.contains( "ar" )) {
             values.put( ID_INSURANCE, id );
             values.put( NAME_INSURANCE_AR, name );
-        } else if (ff.contains( "en" )) {
+        } else if (languaqe.contains( "en" )) {
             values.put( ID_INSURANCE, id );
             values.put( NAME_INSURANCE_EN, name );
         }
@@ -371,37 +362,32 @@ public class MDbHelber extends SQLiteOpenHelper {
     //TODO With spinner specialities
     public void addSpecialitiesSpinner(String id, String name) {
         SQLiteDatabase db = this.getWritableDatabase();
-        SharedPreferences preferences = con.getSharedPreferences( "save_contents",
-                MODE_PRIVATE );
-        String ff = preferences.getString( "lang_key", null );
+
         ContentValues values = new ContentValues();
         values.put( ID_SPECIALITIES, id );
-        if (ff.contains( "ar" )) {
+        if (languaqe.contains( "ar" )) {
             values.put( NAME_SPECIALITIES_AR, name );
-        } else if (ff.contains( "en" )) {
+        } else if (languaqe.contains( "en" )) {
             values.put( NAME_SPECIALITIES_EN, name );
         }
         long query = db.insertWithOnConflict( TABLE_SPECIALITIES, null, values, SQLiteDatabase.CONFLICT_REPLACE );
         db.insertWithOnConflict( TABLE_SPECIALITIES, null, values, SQLiteDatabase.CONFLICT_REPLACE );
 
-        Log.d( TAG, "add specialities list inserted into sqlite: " + ff );
+        Log.d( TAG, "add specialities list inserted into sqlite: " + languaqe );
         db.close();
     }
 
 
     public int GetAreaID(String Dept) {
-        SharedPreferences preferences = con.getSharedPreferences( "save_contents",
-                MODE_PRIVATE );
-        String ff = preferences.getString( "lang_key", null );
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
         int val = 0;
         if (c != null && c.moveToFirst()) {
-            if (ff.contains( "ar" )) {
+            if (languaqe.contains( "ar" )) {
                 c = db.query( TABLE_AREA, new String[]{ID_AREA + " as id", NAME_AREA_AR},
                         NAME_AREA_AR + "=?", new String[]{Dept}, null, null, null );
 
-            } else if (ff.contains( "en" )) {
+            } else if (languaqe.contains( "en" )) {
                 c = db.query( TABLE_AREA, new String[]{ID_AREA + " as id", NAME_AREA_EN},
                         NAME_AREA_EN + "=?", new String[]{Dept}, null, null, null );
 
@@ -416,23 +402,19 @@ public class MDbHelber extends SQLiteOpenHelper {
     }
 
     public int GetSpeialityID(String Dept) {
-        SharedPreferences preferences = con.getSharedPreferences( "save_contents",
-                MODE_PRIVATE );
-        String ff = preferences.getString( "lang_key", null );
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = null;
         int val = 0;
         if (c != null && c.moveToFirst()) {
-            if (ff.contains( "ar" )) {
+            if (languaqe.contains( "ar" )) {
                 c = db.query( TABLE_AREA, new String[]{ID_SPECIALITIES + " as id", NAME_SPECIALITIES_AR},
                         NAME_SPECIALITIES_AR + "=?", new String[]{Dept}, null, null, null );
 
-            } else if (ff.contains( "en" )) {
+            } else if (languaqe.contains( "en" )) {
                 c = db.query( TABLE_AREA, new String[]{ID_SPECIALITIES + " as id", NAME_SPECIALITIES_EN},
                         NAME_SPECIALITIES_EN + "=?", new String[]{Dept}, null, null, null );
 
             }
-
             c.moveToFirst();
 
             val = c.getInt( c.getColumnIndex( ID_AREA ) );
@@ -445,15 +427,15 @@ public class MDbHelber extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         SharedPreferences preferences = con.getSharedPreferences( "save_contents",
                 MODE_PRIVATE );
-        String ff = preferences.getString( "lang_key", null );
+        // String ff = preferences.getString( "lang_key", null );
         Cursor c = null;
         int val = 0;
         if (c != null && c.moveToFirst()) {
-            if (ff.contains( "ar" )) {
+            if (languaqe.contains( "ar" )) {
                 c = db.query( TABLE_STATES, new String[]{ID_STATE + " as id", NAME_STATES_AR},
                         NAME_SPECIALITIES_AR + "=?", new String[]{Dept}, null, null, null );
 
-            } else if (ff.contains( "en" )) {
+            } else if (languaqe.contains( "en" )) {
                 c = db.query( TABLE_STATES, new String[]{ID_STATE + " as id", NAME_STATES_EN},
                         NAME_SPECIALITIES_EN + "=?", new String[]{Dept}, null, null, null );
 
@@ -471,15 +453,15 @@ public class MDbHelber extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         SharedPreferences preferences = con.getSharedPreferences( "save_contents",
                 MODE_PRIVATE );
-        String ff = preferences.getString( "lang_key", null );
+        // String ff = preferences.getString( "lang_key", null );
         Cursor c = null;
         int val = 0;
         if (c != null && c.moveToFirst()) {
-            if (ff.contains( "ar" )) {
+            if (languaqe.contains( "ar" )) {
                 c = db.query( TABLE_INSURANCE, new String[]{ID_INSURANCE + " as id", NAME_INSURANCE_AR},
                         NAME_INSURANCE_AR + "=?", new String[]{Dept}, null, null, null );
 
-            } else if (ff.contains( "en" )) {
+            } else if (languaqe.contains( "en" )) {
                 c = db.query( TABLE_INSURANCE, new String[]{ID_INSURANCE + " as id", NAME_INSURANCE_EN},
                         NAME_INSURANCE_EN + "=?", new String[]{Dept}, null, null, null );
 
