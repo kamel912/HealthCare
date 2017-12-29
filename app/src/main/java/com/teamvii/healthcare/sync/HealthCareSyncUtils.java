@@ -27,7 +27,7 @@ public class HealthCareSyncUtils {
 
 //      COMPLETED (5) Check to see if our weather ContentProvider is empty
         /*
-         * We need to check to see if our ContentProvider has data to display in our forecast
+         * We need to check to see if our ContentProvidehttps://github.com/udacity/ud851-Sunshine/blob/student/S10.02-Solution-SmarterSyncing/app/src/main/java/com/example/android/sunshine/sync/SunshineSyncUtils.javar has data to display in our forecast
          * list. However, performing a query on the main thread is a bad idea as this may
          * cause our UI to lag. Therefore, we create a thread in which we will run the query
          * to check the contents of our ContentProvider.
