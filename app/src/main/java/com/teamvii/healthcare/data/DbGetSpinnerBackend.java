@@ -73,6 +73,7 @@ public class DbGetSpinnerBackend extends DbObject {
             spinnerContentgetAreaSP = new ArrayList<String>();
             if (cursor.moveToFirst()) {
                 do {
+
                     String word = cursor.getString( cursor.getColumnIndexOrThrow( NAME_AREA_EN ) );
                     spinnerContentgetAreaSP.add( word );
                 } while (cursor.moveToNext());
