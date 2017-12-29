@@ -121,7 +121,6 @@ public class PreferenceUtil {
         return sp.getString( AREA_ID_KEY, null );
     }
 
-    //TODO Notfication from firbase save Token & get Token
     public static synchronized PreferenceUtil getInstance(Context context) {
         if (mInstance == null) {
             mInstance = new PreferenceUtil( context );
@@ -261,7 +260,6 @@ public class PreferenceUtil {
 
     }
 
-    //TODO save loging user========
     public void setLoginUser(boolean isLoggedIn) {
 
         editor.putBoolean( KEY_IS_USER_LOGGEDIN, isLoggedIn );
@@ -277,7 +275,6 @@ public class PreferenceUtil {
 
     }
 
-    //TODO save loging driver========
     public void setLoginDriver(boolean isLoggedIn) {
 
         editor.putBoolean( KEY_IS_DOCTOR_LOGGEDIN, isLoggedIn );

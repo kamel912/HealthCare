@@ -1,6 +1,5 @@
 package com.teamvii.healthcare.Ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,32 +9,26 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Switch;
 
-import com.android.volley.RequestQueue;
 import com.teamvii.healthcare.R;
 import com.teamvii.healthcare.connection.ApiInterface;
 import com.teamvii.healthcare.data.DbGetSpinnerBackend;
 import com.teamvii.healthcare.data.MDbHelber;
 import com.teamvii.healthcare.data.PreferenceUtil;
-import com.teamvii.healthcare.sync.GetSpinnersContents;
+import com.teamvii.healthcare.sync.HealthCareSyncData;
+import com.teamvii.healthcare.sync.HealthCareSyncUtils;
 
 
 public class MainActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    GetSpinnersContents getSpinnersContents;
-    Button btnCheck;
     MDbHelber mDbHelber;
-    RequestQueue requestQueue;
-    Context context;
-    String LANG;
     PreferenceUtil preferenceUtil;
     DbGetSpinnerBackend dbGetSpinnerBackend;
+    HealthCareSyncData syncData;
     private ApiInterface apiInterface;
-    private Switch langSwitch;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -43,8 +36,8 @@ public class MainActivity extends AppCompatActivity implements SharedPreferences
         dbGetSpinnerBackend = new DbGetSpinnerBackend( this );
         preferenceUtil = new PreferenceUtil( this );
         setContentView( R.layout.activity_main );
-
-
+        //TODO 7 اللرجوع بالنتائج يعد المزامنه الي هنا
+        HealthCareSyncUtils.initialize( this );
 
     }
 

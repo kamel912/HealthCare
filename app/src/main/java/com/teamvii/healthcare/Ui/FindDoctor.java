@@ -23,7 +23,6 @@ import com.teamvii.healthcare.data.PreferenceUtil;
 
 public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-    //TODO List of item sending the number of id to select it from fk you want
     String[] SPECIALITY, GENDER, STATE, INSURANCE, LANG;
     String num_SPECIALITY, num_GENDER, num_STATE, num_INSURANCE, num_LANG;
     PreferenceUtil preferenceUtil;
@@ -60,7 +59,7 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
         SP_GENDER = findViewById( R.id.SP_GENDER );
         SP_STAT = findViewById( R.id.SP_STAT );
         SP_INSURANCE = findViewById( R.id.SP_INSURANCE );
-        SP_AREA = findViewById( R.id.SP_AREA );//TODO Spinner Area want to data
+        SP_AREA = findViewById( R.id.SP_AREA );
         SP_LANG = findViewById( R.id.SP_LANG );
 
         loadSpinners();
@@ -81,7 +80,6 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
         } );
     }
 
-    //TODO methos response of get number of item we weant
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -94,9 +92,6 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
         lang_txt.setText( SP_LANG.getSelectedItem().toString() );
 
         String g = sp_txt.getText().toString();
-
-        Toast.makeText
-                ( FindDoctor.this, "Selected : " + g, Toast.LENGTH_SHORT ).show();
 
         int num = SP_SPECIALITY.getSelectedItemPosition();
         num_SPECIALITY = Integer.toString( num );
@@ -112,12 +107,7 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
 
         int num5 = SP_LANG.getSelectedItemPosition();
         num_LANG = Integer.toString( num5 );
-       /* Toast.makeText(FindDoctor.this," "+ num_SPECIALITY+ ":" + preferenceUtil.getSpecialityIdKey( this )
-        + "\n num_GENDER :" + preferenceUtil.getGenderIdKey( this )
-                + "\n num_STATE :" + preferenceUtil.getStateIdKey( this )
-                + "\n num_INSURANCE :" + preferenceUtil.getInsuranceIdKey( this)
-                + "\n num_LANG" + preferenceUtil.getLangIdKey( this ),Toast.LENGTH_SHORT).show();
-*/
+
         MDbHelber mDbHelber = new MDbHelber( this );
         int s = mDbHelber.GetAreaID( SP_AREA.getSelectedItem().toString() );
         preferenceUtil.setSpecialityIdKey( String.valueOf( s ) );
@@ -188,7 +178,6 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
 
     }
 
-    //TODO here we want send id from spinner to server
     public void SendIdToServer() {
         Intent intent = new Intent( FindDoctor.this, ShowDoctors.class );
         startActivity( intent );

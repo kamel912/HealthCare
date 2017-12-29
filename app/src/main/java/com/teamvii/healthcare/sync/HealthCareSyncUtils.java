@@ -2,87 +2,165 @@ package com.teamvii.healthcare.sync;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
+import android.database.Cursor;
+import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.util.Log;
+
+import com.android.volley.RequestQueue;
+import com.teamvii.healthcare.data.HealthCareContract;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by ibrahim on 29/12/17.
  */
-//TODO 4 اخر حاجه الكلاس اللي يقوم بعمل شيك علي البيانات بشكل صحيح
+//TODO 4 from class HealthCareSyncIntentService
 public class HealthCareSyncUtils {
+
+
+    private static final int SYNC_INTERVAL_HOURS = 3;
+    private static final int SYNC_INTERVAL_SECONDS = (int) TimeUnit.HOURS.toSeconds( SYNC_INTERVAL_HOURS );
+    private static final int SYNC_FLEXTIME_SECONDS = SYNC_INTERVAL_SECONDS / 3;
+    private static final String SUNSHINE_SYNC_TAG = "Health_care_sync";
+    private static RequestQueue requestQueue;
     private static boolean sInitialized;
 
-
+    //TODO 5
     synchronized public static void initialize(@NonNull final Context context) {
 
-//      COMPLETED (3) Only execute this method body if sInitialized is false
-        /*
-         * Only perform initialization once per app lifetime. If initialization has already been
-         * performed, we have nothing to do in this method.
-         */
+
         if (sInitialized) return;
 
-//      COMPLETED (4) If the method body is executed, set sInitialized to true
         sInitialized = true;
 
-//      COMPLETED (5) Check to see if our weather ContentProvider is empty
-        /*
-         * We need to check to see if our ContentProvidehttps://github.com/udacity/ud851-Sunshine/blob/student/S10.02-Solution-SmarterSyncing/app/src/main/java/com/example/android/sunshine/sync/SunshineSyncUtils.javar has data to display in our forecast
-         * list. However, performing a query on the main thread is a bad idea as this may
-         * cause our UI to lag. Therefore, we create a thread in which we will run the query
-         * to check the contents of our ContentProvider.
-         */
-        new AsyncTask<Void, Void, Void>() {
+        // scheduleFirebaseJobDispatcherSync(context);
+
+        Thread checkForEmpty = new Thread( new Runnable() {
             @Override
-            public Void doInBackground(Void... voids) {
+            public void run() {
 
-             /*   *//* URI for every row of weather data in our weather table*//*
-                Uri QueryUri = HealthCareContract.AreasEntry.CONTENT_URI;
+                //هنا شغلت الفولي مباشرة للعمل عليها مرقتا حتي يتم جلب
+                //  HealthCareSyncData.syncSpinner( context );
 
-                *//*
-                 * Since this query is going to be used only as a check to see if we have any
-                 * data (rather than to display data), we just need to PROJECT the ID of each
-                 * row. In our queries where we display data, we need to PROJECT more columns
-                 * to determine what weather details need to be displayed.
-                 *//*
-                String[] projectionColumns = {HealthCareContract.AreasEntry._ID};
-              //  String selectionStatement =HealthCareContract.AreasEntry();
 
-                *//* Here, we perform the query to check to see if we have any weather data *//*
-                Cursor cursor = context.getContentResolver().query(
-                        QueryUri,
-                        projectionColumns,
-                        selectionStatement,
+                //ام يتم العمل عليها بعد
+
+                Uri InsuranceQueryUri = HealthCareContract.InsurancesEntry.CONTENT_URI;
+                String[] projectionColumnsInsurance = {HealthCareContract.InsurancesEntry._ID};
+                String selectionStatementInsurance = HealthCareContract.InsurancesEntry
+                        .getSqlSelectLang( context );
+
+
+                Cursor cursorInsurance = context.getContentResolver().query(
+                        InsuranceQueryUri,
+                        projectionColumnsInsurance,
+                        selectionStatementInsurance,
                         null,
                         null);
-                *//*
-                 * A Cursor object can be null for various different reasons. A few are
-                 * listed below.
-                 *
-                 *   1) Invalid URI
-                 *   2) A certain ContentProvider's query method returns null
-                 *   3) A RemoteException was thrown.
-                 *
-                 * Bottom line, it is generally a good idea to check if a Cursor returned
-                 * from a ContentResolver is null.
-                 *
-                 * If the Cursor was null OR if it was empty, we need to sync immediately to
-                 * be able to display data to the user.
-                 *//*
-                //  COMPLETED (6) If it is empty or we have a null Cursor, sync the weather now!
-                if (null == cursor || cursor.getCount() == 0) {
+                Log.d( "InsuranceQueryUri", String.valueOf( InsuranceQueryUri ) );
+
+                Log.d( "InsuranceQueryUri", String.valueOf( projectionColumnsInsurance ) );
+                Log.d( "InsuranceQueryUri", String.valueOf( selectionStatementInsurance ) );
+
+                ///////////////////////////
+                Uri AreasQueryUri = HealthCareContract.AreasEntry.CONTENT_URI;
+                String[] projectionColumnsAreas = {HealthCareContract.AreasEntry._ID};
+                // String selectionStatementAreas = new HealthCareContract.AreasEntry(null);
+
+
+                Cursor cursorArea = context.getContentResolver().query(
+                        AreasQueryUri,
+                        projectionColumnsAreas,
+                        //   selectionStatementAreas,
+                        null,
+                        null,
+                        null );
+                Log.d( "AreasQueryUri", String.valueOf( AreasQueryUri ) );
+
+                Log.d( "AreasQueryUri", String.valueOf( projectionColumnsAreas ) );
+                // Log.d( "AreasQueryUri", String.valueOf( selectionStatementAreas ) );
+
+                /////////////////////////////
+              /* Uri StatesueryUri = HealthCareContract.StatesEntry.CONTENT_URI;
+                String[] projectionColumnsStates = { HealthCareContract.StatesEntry._ID};
+                String selectionStatementStates = HealthCareContract.StatesEntry
+                        .getSqlSelectLang(context);
+
+                Cursor cursorStates = context.getContentResolver().query(
+                        StatesueryUri,
+                        projectionColumnsStates,
+                        selectionStatementStates,
+                        null,
+                        null);
+                Log.d( "StatesueryUri", String.valueOf( StatesueryUri ) );
+
+                Log.d( "StatesueryUri", String.valueOf( projectionColumnsStates ) );
+                Log.d( "StatesueryUri", String.valueOf( selectionStatementStates ) );
+*/
+                //////////////////////////////////
+                Uri SpecialitiesQueryUri = HealthCareContract.SpecialitiesEntry.CONTENT_URI;
+                String[] projectionColumnsSpecialities = {HealthCareContract.SpecialitiesEntry._ID};
+                String selectionStatementSpecialities = HealthCareContract.SpecialitiesEntry
+                        .getSqlSelectLang( context );
+
+                Cursor cursorSpecialities = context.getContentResolver().query(
+                        SpecialitiesQueryUri,
+                        projectionColumnsSpecialities,
+                        selectionStatementSpecialities,
+                        null,
+                        null );
+                Log.d( "SpecialitiesQueryUri", String.valueOf( SpecialitiesQueryUri ) );
+
+                Log.d( "SpecialitiesQueryUri", String.valueOf( projectionColumnsSpecialities ) );
+                Log.d( "SpecialitiesQueryUri", String.valueOf( selectionStatementSpecialities ) );
+
+                ///////////////////////////////////////
+                Uri LanguagesQueryUri = HealthCareContract.LanguagesEntry.CONTENT_URI;
+                String[] projectionColumnsLanguages = {HealthCareContract.LanguagesEntry._ID};
+                String selectionStatementLanguages = HealthCareContract.LanguagesEntry
+                        .getSqlSelectLang( context );
+
+                Cursor cursorLanguage = context.getContentResolver().query(
+                        LanguagesQueryUri,
+                        projectionColumnsLanguages,
+                        selectionStatementLanguages,
+                        null,
+                        null );
+                Log.d( "LanguagesQueryUri", String.valueOf( LanguagesQueryUri ) );
+
+                Log.d( "projectionLanguages", String.valueOf( projectionColumnsLanguages ) );
+                Log.d( "selectionLanguages", String.valueOf( selectionStatementLanguages ) );
+
+
+                if (null == cursorInsurance || cursorInsurance.getCount() == 0) {
+                    startImmediateSync( context );
+                } else if (null == cursorArea || cursorArea.getCount() == 0) {
+                    startImmediateSync( context );
+                }
+               /* else if (null == cursorStates || cursorStates.getCount() == 0) {
+                    startImmediateSync(context);
+                }*/
+                else if (null == cursorSpecialities || cursorSpecialities.getCount() == 0) {
+                    startImmediateSync( context );
+                } else if (null == cursorLanguage || cursorLanguage.getCount() == 0) {
                     startImmediateSync(context);
                 }
 
-                *//* Make sure to close the Cursor to avoid memory leaks! *//*
-                cursor.close();*/
-                return null;
+
+                cursorInsurance.close();
+                cursorArea.close();
+                //cursorStates.close();
+                cursorSpecialities.close();
+                cursorLanguage.close();
+
             }
-        }.execute();
+        } );
+
+        checkForEmpty.start();
     }
 
     public static void startImmediateSync(@NonNull final Context context) {
-//      COMPLETED (11) Within that method, start the SunshineSyncIntentService
         Intent intentToSyncImmediately = new Intent( context, HealthCareSyncIntentService.class );
         context.startService( intentToSyncImmediately );
     }

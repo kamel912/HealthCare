@@ -1,7 +1,9 @@
 package com.teamvii.healthcare.data;
 
+import android.content.Context;
 import android.net.Uri;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,9 +13,14 @@ import java.util.List;
  */
 
 public class HealthCareContract {
+
+
     public static final String COLUMN_TIMESTAMP = "timestamp";
     public static final String CONTENT_AUTHORITY = "com.teamvii.healthcare";
     public static final Uri BASE_CONTENT_URI = Uri.parse( "content://" + CONTENT_AUTHORITY );
+//    public static final String COMPLETED_URI = PreferenceUtil.getPreferredLang( context );
+
+
     public static final String PATH_AREA = "areas";
     public static final String PATH_GENDER = "genders";
     public static final String PATH_INSURANCE = "insurances";
@@ -49,8 +56,6 @@ public class HealthCareContract {
         TABLES_COLUMNS.add( StatesEntry.STATES_TABLE_COLUMNS );
     }
 
-    private HealthCareContract() {
-    }
 
     private static List<String> getColumns(String... strings) {
         List<String> columns = new ArrayList<>();
@@ -61,6 +66,8 @@ public class HealthCareContract {
     }
 
     public static final class AreasEntry implements BaseColumns {
+
+
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
                 .appendPath( PATH_AREA )
                 .build();
@@ -73,6 +80,23 @@ public class HealthCareContract {
                 COLUMN_AREA_NAME_EN,
                 COLUMN_AREA_NAME_AR
         );
+
+
+        //TODO (6) HealthCareSyncUtils في كلاس  initialize تمت اضافتها لتعطي ميثود
+        public static String getSqlSelectLang(Context context) {
+            String Lang = PreferenceUtil.getPreferredLang( context );
+            if (Lang.contains( "ar" )) {
+                return AreasEntry.COLUMN_AREA_NAME_EN + " >= " + Lang;
+
+
+            } else if (Lang.contains( "en" )) {
+                return AreasEntry.COLUMN_AREA_NAME_AR + " >= " + Lang;
+
+            }
+            return InsurancesEntry.COLUMN_INSURANCE_NAME_AR + " >= " + Lang;
+
+        }
+
     }
 
     public static final class GendersEntry implements BaseColumns {
@@ -88,9 +112,27 @@ public class HealthCareContract {
                 COLUMN_GENDER_NAME_EN,
                 COLUMN_GENDER_NAME_AR
         );
+        //TODO (6) HealthCareSyncUtils في كلاس  initialize تمت اضافتها لتعطي ميثود
+
+        public static String getSqlSelectLang(Context context) {
+            String Lang = PreferenceUtil.getPreferredLang( context );
+            if (Lang.contains( "ar" )) {
+                return GendersEntry.COLUMN_GENDER_NAME_AR + " >= " + Lang;
+
+
+            } else if (Lang.contains( "en" )) {
+                return GendersEntry.COLUMN_GENDER_NAME_EN + " >= " + Lang;
+
+            } else if (Lang.contains( null )) {
+                Log.d( "nolangLangvalue ", GendersEntry.GENDERS_TABLE_COLUMNS + " >= " + Lang );
+            }
+            return GendersEntry.GENDERS_TABLE_COLUMNS + " >= " + Lang;
+
+        }
     }
 
     public static final class InsurancesEntry implements BaseColumns {
+
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
                 .appendPath( PATH_INSURANCE )
                 .build();
@@ -103,6 +145,13 @@ public class HealthCareContract {
                 COLUMN_INSURANCE_NAME_EN,
                 COLUMN_INSURANCE_NAME_AR
         );
+
+        //TODO (6) HealthCareSyncUtils في كلاس  initialize تمت اضافتها لتعطي ميثود
+        public static String getSqlSelectLang(Context context) {
+            String Lang = PreferenceUtil.getPreferredLang( context );
+            return Lang;
+
+        }
     }
 
     public static final class LanguagesEntry implements BaseColumns {
@@ -118,6 +167,22 @@ public class HealthCareContract {
                 COLUMN_LANGUAGE_NAME_EN,
                 COLUMN_LANGUAGE_NAME_AR
         );
+        //TODO (6) HealthCareSyncUtils في كلاس  initialize تمت اضافتها لتعطي ميثود
+
+        public static String getSqlSelectLang(Context context) {
+            String Lang = PreferenceUtil.getPreferredLang( context );
+            if (Lang.contains( "ar" )) {
+                return LanguagesEntry.COLUMN_LANGUAGE_NAME_AR + " >= " + Lang;
+
+
+            } else if (Lang.contains( "en" )) {
+                return LanguagesEntry.COLUMN_LANGUAGE_NAME_EN + " >= " + Lang;
+
+            }
+            return LanguagesEntry.LANGUAGES_TABLE_COLUMNS + " >= " + Lang;
+
+
+        }
     }
 
     public static final class SpecialitiesEntry implements BaseColumns {
@@ -133,6 +198,21 @@ public class HealthCareContract {
                 COLUMN_SPECIALITY_NAME_EN,
                 COLUMN_SPECIALITY_NAME_AR
         );
+        //TODO (6) HealthCareSyncUtils في كلاس  initialize تمت اضافتها لتعطي ميثود
+
+        public static String getSqlSelectLang(Context context) {
+            String Lang = PreferenceUtil.getPreferredLang( context );
+            if (Lang.contains( "ar" )) {
+                return SpecialitiesEntry.COLUMN_SPECIALITY_NAME_AR + " >= " + Lang;
+
+
+            } else if (Lang.contains( "en" )) {
+                return SpecialitiesEntry.COLUMN_SPECIALITY_NAME_EN + " >= " + Lang;
+
+            }
+            return SpecialitiesEntry.SPECIALITIES_TABLE_COLUMNS + " >= " + Lang;
+
+        }
     }
 
     public static final class StatesEntry implements BaseColumns {
@@ -148,6 +228,24 @@ public class HealthCareContract {
                 COLUMN_STATE_NAME_EN,
                 COLUMN_STATE_NAME_AR
         );
+
+        //TODO (6) HealthCareSyncUtils في كلاس  initialize تمت اضافتها لتعطي ميثود
+        public static String getSqlSelectLang(Context context) {
+            String Lang = PreferenceUtil.getPreferredLang( context );
+            if (Lang.contains( "ar" )) {
+                return StatesEntry.COLUMN_STATE_NAME_AR + " >= " + Lang;
+
+
+            } else if (Lang.contains( "en" )) {
+                return StatesEntry.COLUMN_STATE_NAME_EN + " >= " + Lang;
+
+            }
+            return StatesEntry.STATES_TABLE_COLUMNS + " >= " + Lang;
+
+        }
+
+
     }
+
 
 }

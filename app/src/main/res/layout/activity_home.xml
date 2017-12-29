@@ -43,6 +43,17 @@
 
         <!-- Login Button -->
 
+        <TextView
+            android:id="@+id/cb_results"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gray_background" />
+
+        <EditText
+            android:id="@+id/cashback_cat"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/gray_background" />
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="fill_parent"

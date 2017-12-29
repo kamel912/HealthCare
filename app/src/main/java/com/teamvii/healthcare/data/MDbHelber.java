@@ -177,7 +177,6 @@ public class MDbHelber extends SQLiteOpenHelper {
 
     }
 
-    //TODO work with TABLE_DOCTOR data====================================================
     public void addDoctorForSpinner(String id, String name, String gender) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -215,8 +214,6 @@ public class MDbHelber extends SQLiteOpenHelper {
         return user;
     }
 
-    //TODO work with All Spinner data methods =============================================================
-    //TODO With spinner area
 
 
     public void addAreaSpinner(String id, String name) {
@@ -307,7 +304,6 @@ public class MDbHelber extends SQLiteOpenHelper {
         return user;
     }
 
-    //TODO With spinner insurances
     public void addInsurancesSpinner(String id, String name) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -358,8 +354,6 @@ public class MDbHelber extends SQLiteOpenHelper {
 
         return user;
     }
-
-    //TODO With spinner specialities
     public void addSpecialitiesSpinner(String id, String name) {
         SQLiteDatabase db = this.getWritableDatabase();
 
