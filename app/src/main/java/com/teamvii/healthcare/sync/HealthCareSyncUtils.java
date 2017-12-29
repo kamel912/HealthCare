@@ -2,13 +2,9 @@ package com.teamvii.healthcare.sync;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.android.volley.RequestQueue;
-import com.teamvii.healthcare.data.HealthCareContract;
 
 import java.util.concurrent.TimeUnit;
 
@@ -34,11 +30,10 @@ public class HealthCareSyncUtils {
 
         sInitialized = true;
 
-        // scheduleFirebaseJobDispatcherSync(context);
-
         Thread checkForEmpty = new Thread( new Runnable() {
             @Override
             public void run() {
+                startImmediateSync( context );
 
                 //هنا شغلت الفولي مباشرة للعمل عليها مرقتا حتي يتم جلب
                 //  HealthCareSyncData.syncSpinner( context );
@@ -46,7 +41,7 @@ public class HealthCareSyncUtils {
 
                 //ام يتم العمل عليها بعد
 
-                Uri InsuranceQueryUri = HealthCareContract.InsurancesEntry.CONTENT_URI;
+               /* Uri InsuranceQueryUri = HealthCareContract.InsurancesEntry.CONTENT_URI;
                 String[] projectionColumnsInsurance = {HealthCareContract.InsurancesEntry._ID};
                 String selectionStatementInsurance = HealthCareContract.InsurancesEntry
                         .getSqlSelectLang( context );
@@ -82,7 +77,7 @@ public class HealthCareSyncUtils {
                 // Log.d( "AreasQueryUri", String.valueOf( selectionStatementAreas ) );
 
                 /////////////////////////////
-              /* Uri StatesueryUri = HealthCareContract.StatesEntry.CONTENT_URI;
+              *//* Uri StatesueryUri = HealthCareContract.StatesEntry.CONTENT_URI;
                 String[] projectionColumnsStates = { HealthCareContract.StatesEntry._ID};
                 String selectionStatementStates = HealthCareContract.StatesEntry
                         .getSqlSelectLang(context);
@@ -97,7 +92,7 @@ public class HealthCareSyncUtils {
 
                 Log.d( "StatesueryUri", String.valueOf( projectionColumnsStates ) );
                 Log.d( "StatesueryUri", String.valueOf( selectionStatementStates ) );
-*/
+*//*
                 //////////////////////////////////
                 Uri SpecialitiesQueryUri = HealthCareContract.SpecialitiesEntry.CONTENT_URI;
                 String[] projectionColumnsSpecialities = {HealthCareContract.SpecialitiesEntry._ID};
@@ -138,9 +133,9 @@ public class HealthCareSyncUtils {
                 } else if (null == cursorArea || cursorArea.getCount() == 0) {
                     startImmediateSync( context );
                 }
-               /* else if (null == cursorStates || cursorStates.getCount() == 0) {
+                else if (null == cursorStates || cursorStates.getCount() == 0) {
                     startImmediateSync(context);
-                }*/
+                }
                 else if (null == cursorSpecialities || cursorSpecialities.getCount() == 0) {
                     startImmediateSync( context );
                 } else if (null == cursorLanguage || cursorLanguage.getCount() == 0) {
@@ -152,7 +147,7 @@ public class HealthCareSyncUtils {
                 cursorArea.close();
                 //cursorStates.close();
                 cursorSpecialities.close();
-                cursorLanguage.close();
+                cursorLanguage.close();*/
 
             }
         } );

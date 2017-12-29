@@ -28,6 +28,8 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
     PreferenceUtil preferenceUtil;
     TextView sp_txt, state_txt, area_txt, insurance_txt, gender_txt, lang_txt;
     DbGetSpinnerBackend dbGetSpinnerBackend;
+    String[] spinnerArea, spinnerInsurance, spinnerSpecialities, spinnerStateses;
+    MDbHelber mDbHelber;
     private Spinner SP_ID, SP_SPECIALITY, SP_GENDER, SP_STAT, SP_INSURANCE, SP_AREA, SP_LANG;
 
     @Override
@@ -35,7 +37,6 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_find_doctor );
 
-        dbGetSpinnerBackend = new DbGetSpinnerBackend( this );
         preferenceUtil = new PreferenceUtil( this );
         sp_txt = findViewById( R.id.sp_txt );
         state_txt = findViewById( R.id.state_txt );
@@ -44,15 +45,18 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
         gender_txt = findViewById( R.id.gender_txt );
         lang_txt = findViewById( R.id.lang_txt );
 
+        dbGetSpinnerBackend = new DbGetSpinnerBackend( this );
+        spinnerArea = dbGetSpinnerBackend.getAreaSP();
+        spinnerInsurance = dbGetSpinnerBackend.getInsuranceSP();
+        spinnerSpecialities = dbGetSpinnerBackend.getSpecialtySP();
+        spinnerStateses = dbGetSpinnerBackend.getStatesSp();
 
 
-
-        SPECIALITY = getResources().getStringArray( R.array.speciality );
-        LANG = getResources().getStringArray( R.array.lang );
-        GENDER = getResources().getStringArray( R.array.gender );
-        STATE = getResources().getStringArray( R.array.state );
-        INSURANCE = getResources().getStringArray( R.array.insurance );
-        LANG = getResources().getStringArray( R.array.lang );
+        SPECIALITY = getResources().getStringArray( R.array.listSpeciality );
+        LANG = getResources().getStringArray( R.array.listLang );
+        GENDER = getResources().getStringArray( R.array.listGender );
+        STATE = getResources().getStringArray( R.array.listState );
+        INSURANCE = getResources().getStringArray( R.array.listInsurance );
 
         // SP_ID=findViewById( R.id.SP_ID );
         SP_SPECIALITY = findViewById( R.id.SP_SPECIALITY );
@@ -62,7 +66,19 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
         SP_AREA = findViewById( R.id.SP_AREA );
         SP_LANG = findViewById( R.id.SP_LANG );
 
-        loadSpinners();
+
+        if (spinnerArea != null && spinnerInsurance != null && spinnerSpecialities != null && spinnerStateses != null) {
+            loadSpinnersFromSqlite();
+
+        } else {
+            try {
+                loadSpinnersFromSting();
+
+            } catch (NullPointerException e) {
+                e.printStackTrace();
+            }
+        }
+
 
         SP_SPECIALITY.setOnItemSelectedListener( this );
         SP_GENDER.setOnItemSelectedListener( this );
@@ -80,9 +96,20 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
         } );
     }
 
+
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
+        int num = SP_SPECIALITY.getSelectedItemPosition();
+        num_SPECIALITY = Integer.toString( num );
+        int num2 = SP_GENDER.getSelectedItemPosition();
+        num_GENDER = Integer.toString( num2 );
+        int num3 = SP_STAT.getSelectedItemPosition();
+        num_STATE = Integer.toString( num3 );
+        int num4 = SP_INSURANCE.getSelectedItemPosition();
+        num_INSURANCE = Integer.toString( num4 );
+        int num5 = SP_LANG.getSelectedItemPosition();
+        num_LANG = Integer.toString( num5 );
 
         sp_txt.setText( SP_SPECIALITY.getSelectedItem().toString() );
         state_txt.setText( SP_STAT.getSelectedItem().toString() );
@@ -91,38 +118,30 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
         gender_txt.setText( SP_GENDER.getSelectedItem().toString() );
         lang_txt.setText( SP_LANG.getSelectedItem().toString() );
 
-        String g = sp_txt.getText().toString();
-
-        int num = SP_SPECIALITY.getSelectedItemPosition();
-        num_SPECIALITY = Integer.toString( num );
-
-        int num2 = SP_GENDER.getSelectedItemPosition();
-        num_GENDER = Integer.toString( num2 );
-
-        int num3 = SP_STAT.getSelectedItemPosition();
-        num_STATE = Integer.toString( num3 );
-
-        int num4 = SP_INSURANCE.getSelectedItemPosition();
-        num_INSURANCE = Integer.toString( num4 );
-
-        int num5 = SP_LANG.getSelectedItemPosition();
-        num_LANG = Integer.toString( num5 );
-
-        MDbHelber mDbHelber = new MDbHelber( this );
-        int s = mDbHelber.GetAreaID( SP_AREA.getSelectedItem().toString() );
-        preferenceUtil.setSpecialityIdKey( String.valueOf( s ) );
-
-        int s2 = mDbHelber.GetInsuranceID( SP_INSURANCE.getSelectedItem().toString() );
-        preferenceUtil.setGenderIdKey( String.valueOf( s2 ) );
+       /* try {
 
 
-        int s3 = mDbHelber.GetStatesID( SP_STAT.getSelectedItem().toString() );
-        preferenceUtil.setStateIdKey( String.valueOf( s3 ) );
+            int s = mDbHelber.GetAreaID( SP_AREA.getSelectedItem().toString() );
+            int s2 = mDbHelber.GetInsuranceID( SP_INSURANCE.getSelectedItem().toString() );
+            int s3 = mDbHelber.GetStatesID( SP_STAT.getSelectedItem().toString() );
+            int s4 = mDbHelber.GetSpeialityID( SP_SPECIALITY.getSelectedItem().toString() );
+            if(s!=0&&s2!=0&&s3!=0&&s4!=0){
+                preferenceUtil.setSpecialityIdKey( String.valueOf( s ) );
+                preferenceUtil.setGenderIdKey( String.valueOf( s2 ) );
+                preferenceUtil.setStateIdKey( String.valueOf( s3 ) );
+                preferenceUtil.setInsuranceIdKey( String.valueOf( s4 ) );
 
-        int s4 = mDbHelber.GetSpeialityID( SP_SPECIALITY.getSelectedItem().toString() );
-        preferenceUtil.setInsuranceIdKey( String.valueOf( s4 ) );
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
 
-        preferenceUtil.setLangIdKey( this, num_LANG );
+        }*/
+
+
+
+
+
+
 
         Log.d( "Saved_id", " num_SPECIALITY :" + preferenceUtil.getSpecialityIdKey( this )
                 + "\n num_GENDER :" + preferenceUtil.getGenderIdKey( this )
@@ -190,10 +209,8 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
     }
 
 
+    private void loadSpinnersFromSqlite() {
 
-    private void loadSpinners() {
-
-        final String[] spinnerArea = dbGetSpinnerBackend.getAreaSP();
         final ArrayAdapter<String> spinnerArrayAdapter2 = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_dropdown_item, spinnerArea ) {
             @Override
@@ -220,13 +237,13 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
                 Toast.makeText
                         ( getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT ).show();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         } );
 
-        final String[] spinnerInsurance = dbGetSpinnerBackend.getInsuranceSP();
         final ArrayAdapter<String> spinnerAdapterInsurance = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_dropdown_item, spinnerInsurance ) {
             @Override
@@ -253,6 +270,7 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
                 Toast.makeText
                         ( getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT ).show();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -260,7 +278,6 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
         } );
 
 
-        final String[] spinnerSpecialities = dbGetSpinnerBackend.getSpecialtySP();
         final ArrayAdapter<String> spinnerAdapterSpecialities = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_dropdown_item, spinnerSpecialities ) {
             @Override
@@ -292,12 +309,13 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
                 Toast.makeText
                         ( getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT ).show();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         } );
-        final String[] spinnerStateses = dbGetSpinnerBackend.getStatesSp();
+
         final ArrayAdapter<String> spinnerAdapterStates = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_dropdown_item, spinnerStateses ) {
             @Override
@@ -329,6 +347,7 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
                 Toast.makeText
                         ( getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT ).show();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -337,6 +356,150 @@ public class FindDoctor extends AppCompatActivity implements AdapterView.OnItemS
 
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    private void loadSpinnersFromSting() {
+        final ArrayAdapter<String> spinnerArrayAdapter2 = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray( R.array.listArea ) ) {
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView( position, convertView, parent );
+                TextView tv = (TextView) view;
+                if (position % 2 == 1) {
+                    tv.setBackgroundColor( Color.parseColor( "#FF00D977" ) );
+                } else {
+                    tv.setBackgroundColor( Color.parseColor( "#FF76F2BA" ) );
+                }
+                return view;
+            }
+        };
+        spinnerArrayAdapter2.setDropDownViewResource( R.layout.spinner_dropdown_item );
+        SP_AREA.setAdapter( spinnerArrayAdapter2 );
+
+        SP_AREA.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemText = (String) parent.getItemAtPosition( position );
+                // Notify the selected item text
+                Toast.makeText
+                        ( getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT ).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        } );
+        spinnerInsurance = dbGetSpinnerBackend.getInsuranceSP();
+        final ArrayAdapter<String> spinnerAdapterInsurance = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray( R.array.listInsurance ) ) {
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView( position, convertView, parent );
+                TextView tv = (TextView) view;
+                if (position % 2 == 1) {
+                    tv.setBackgroundColor( Color.parseColor( "#FF00D977" ) );
+                } else {
+                    tv.setBackgroundColor( Color.parseColor( "#FF76F2BA" ) );
+                }
+                return view;
+            }
+        };
+        spinnerAdapterInsurance.setDropDownViewResource( R.layout.spinner_dropdown_item );
+        SP_INSURANCE.setAdapter( spinnerAdapterInsurance );
+
+        SP_INSURANCE.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemText = (String) parent.getItemAtPosition( position );
+                // Notify the selected item text
+                Toast.makeText
+                        ( getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT ).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        } );
+
+        final ArrayAdapter<String> spinnerAdapterSpecialities = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray( R.array.listSpeciality ) ) {
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView( position, convertView, parent );
+                TextView tv = (TextView) view;
+
+                if (position == -1) {
+                    tv.setText( R.string.select_speciality );
+                    tv.setTextSize( 15 );
+                } else if (position % 2 == 1 || position == 0) {
+
+                    tv.setBackgroundColor( Color.parseColor( "#FF00D977" ) );
+                } else {
+                    tv.setBackgroundColor( Color.parseColor( "#FF76F2BA" ) );
+                }
+                return view;
+            }
+        };
+        spinnerAdapterSpecialities.setDropDownViewResource( R.layout.spinner_dropdown_item );
+        SP_SPECIALITY.setAdapter( spinnerAdapterSpecialities );
+
+        SP_SPECIALITY.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemText = (String) parent.getItemAtPosition( position );
+                // Notify the selected item text
+                Toast.makeText
+                        ( getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT ).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        } );
+        final ArrayAdapter<String> spinnerAdapterStates = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray( R.array.listState ) ) {
+            @Override
+            public View getDropDownView(int position, View convertView,
+                                        ViewGroup parent) {
+                View view = super.getDropDownView( position, convertView, parent );
+                TextView tv = (TextView) view;
+
+                if (position == -1) {
+                    tv.setText( R.string.select_state );
+                    tv.setTextSize( 15 );
+                } else if (position % 2 == 1 || position == 0) {
+
+                    tv.setBackgroundColor( Color.parseColor( "#FF00D977" ) );
+                } else {
+                    tv.setBackgroundColor( Color.parseColor( "#FF76F2BA" ) );
+                }
+                return view;
+            }
+        };
+        spinnerAdapterStates.setDropDownViewResource( R.layout.spinner_dropdown_item );
+        SP_STAT.setAdapter( spinnerAdapterStates );
+
+        SP_STAT.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedItemText = (String) parent.getItemAtPosition( position );
+                // Notify the selected item text
+                Toast.makeText
+                        ( getApplicationContext(), "Selected : " + selectedItemText, Toast.LENGTH_SHORT ).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        } );
+
+    }
 
 
 
