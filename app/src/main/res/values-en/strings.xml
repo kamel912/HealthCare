@@ -12,6 +12,15 @@
     <string name="btn_logout">LOGOUT</string>
     <string name="name">Fullname</string>
 
+    <string name="action_settings">Settings</string>
+    <!--  Settings Preferences Values -->
+    <string name="pref_language_key" translatable="false">language</string>
+    <string name="pref_language_label">Language</string>
+    <string name="pref_language_arabic_label">Arabic</string>
+    <string name="pref_language_english_label">English</string>
+    <string name="pref_language_arabic_value" translatable="false">ar_EG</string>
+    <string name="pref_language_english_value" translatable="false">en_US</string>
+
     //main
     <string name="chk_ar">check_ar</string>
     <string name="chk_en">check_en</string>

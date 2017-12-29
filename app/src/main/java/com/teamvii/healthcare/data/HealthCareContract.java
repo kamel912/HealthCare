@@ -11,36 +11,42 @@ import java.util.List;
  */
 
 public class HealthCareContract {
-
     public static final String COLUMN_TIMESTAMP = "timestamp";
     public static final String CONTENT_AUTHORITY = "com.teamvii.healthcare";
     public static final Uri BASE_CONTENT_URI = Uri.parse( "content://" + CONTENT_AUTHORITY );
-    public static final String PATH_AREA = "area";
-    public static final String PATH_GENDER = "gender";
-    public static final String PATH_INSURANCE = "insurance";
-    public static final String PATH_LANGUAGE = "language";
-    public static final String PATH_SPECIALITY = "speciality";
+    public static final String PATH_AREA = "areas";
+    public static final String PATH_GENDER = "genders";
+    public static final String PATH_INSURANCE = "insurances";
+    public static final String PATH_LANGUAGE = "languages";
+    public static final String PATH_SPECIALITY = "specialities";
     public static final String PATH_STATE = "state";
+    public static final String URL_SYNC_AUTHORITY = "http://devsinai.com/healthcare/sync/";
+    public static final String URL_SYNC_AREA = URL_SYNC_AUTHORITY + "areas.php";
+    public static final String URL_SYNC_GENDER = URL_SYNC_AUTHORITY + "genders.php";
+    public static final String URL_SYNC_INSURANCE = URL_SYNC_AUTHORITY + "insurances.php";
+    public static final String URL_SYNC_LANGUAGE = URL_SYNC_AUTHORITY + "languages.php";
+    public static final String URL_SYNC_SPECIALITY = URL_SYNC_AUTHORITY + "specialities.php";
+    public static final String URL_SYNC_STATE = URL_SYNC_AUTHORITY + "states.php";
 
     public static List<String> TABLES_NAMES = new ArrayList<>();
-    public static List<List<String>> TAMBLES_COLUMNS = new ArrayList<>();
+    public static List<List<String>> TABLES_COLUMNS = new ArrayList<>();
 
     static {
+        //  To add tables names to TABLES_NAMES
         TABLES_NAMES.add( HealthCareContract.AreasEntry.TABLE_NAME );
         TABLES_NAMES.add( HealthCareContract.GendersEntry.TABLE_NAME );
         TABLES_NAMES.add( HealthCareContract.InsurancesEntry.TABLE_NAME );
         TABLES_NAMES.add( HealthCareContract.LanguagesEntry.TABLE_NAME );
         TABLES_NAMES.add( HealthCareContract.SpecialitiesEntry.TABLE_NAME );
         TABLES_NAMES.add( HealthCareContract.StatesEntry.TABLE_NAME );
-    }
 
-    static {
-        TAMBLES_COLUMNS.add( AreasEntry.AREAS_TABLE_COLUMNS );
-        TAMBLES_COLUMNS.add( GendersEntry.GENDERS_TABLE_COLUMNS );
-        TAMBLES_COLUMNS.add( InsurancesEntry.INSURANCES_TABLE_COLUMNS );
-        TAMBLES_COLUMNS.add( LanguagesEntry.LANGUAGES_TABLE_COLUMNS );
-        TAMBLES_COLUMNS.add( SpecialitiesEntry.SPECIALITIES_TABLE_COLUMNS );
-        TAMBLES_COLUMNS.add( StatesEntry.STATES_TABLE_COLUMNS );
+        //  To add columns names of tables to TABLES_NAMES
+        TABLES_COLUMNS.add( AreasEntry.AREAS_TABLE_COLUMNS );
+        TABLES_COLUMNS.add( GendersEntry.GENDERS_TABLE_COLUMNS );
+        TABLES_COLUMNS.add( InsurancesEntry.INSURANCES_TABLE_COLUMNS );
+        TABLES_COLUMNS.add( LanguagesEntry.LANGUAGES_TABLE_COLUMNS );
+        TABLES_COLUMNS.add( SpecialitiesEntry.SPECIALITIES_TABLE_COLUMNS );
+        TABLES_COLUMNS.add( StatesEntry.STATES_TABLE_COLUMNS );
     }
 
     private HealthCareContract() {

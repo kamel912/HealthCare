@@ -12,6 +12,14 @@
     <string name="welcome">مرحيا</string>
     <string name="btn_logout">تسجيل خروج</string>
     <string name="name">الاسم بالكامل</string>
+    <string name="action_settings">الاعدادت</string>
+    <!--  Settings Preferences Values -->
+    <string name="pref_language_key" translatable="false">language</string>
+    <string name="pref_language_label">اللغه</string>
+    <string name="pref_language_arabic_label">العربيه</string>
+    <string name="pref_language_english_label">الانجليزيه</string>
+    <string name="pref_language_arabic_value" translatable="false">عربي_مصر</string>
+    <string name="pref_language_english_value" translatable="false">انجليزيه_الولايات المتحده</string>
 
     //find doctor
     <string name="find_doctor">ابحث عن طبيبط</string>
@@ -23,7 +31,7 @@
     <string name="select_gender">الجنس</string>
     <string name="select_lang">اختر اللغه</string>
 
-    //TODO Source of list Spinner
+    <!-- TODO Source of list Spinner-->
     //speciality--1
     <string name="Ear">انف</string>
     <string name="Nose">اذن</string>

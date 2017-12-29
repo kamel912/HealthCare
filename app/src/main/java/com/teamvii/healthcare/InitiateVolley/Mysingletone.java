@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
@@ -62,5 +63,11 @@ public class Mysingletone {
 
     public ImageLoader getImageLoader() {
         return mImageLoader;
+    }
+
+    public <T> void addRequestQueue(Request<T> request) {
+        DefaultRetryPolicy retryPolicy = new DefaultRetryPolicy( 0, -1, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT );
+        request.setRetryPolicy( retryPolicy );
+        getRequestQueue().add( request );
     }
 }

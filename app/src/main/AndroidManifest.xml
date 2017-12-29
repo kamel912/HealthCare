@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.teamvii.healthcare">
 
+    <uses-permission android:name="com.example.udacity.droidtermsexample.TERMS_READ" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -19,9 +21,29 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Ui.FindDoctor" />
+        <provider
+            android:name=".data.HealthCareProvider"
+            android:authorities="com.teamvii.healthcare"
+            android:exported="false" />
+
+        <activity android:name=".Ui.MainActivity" />
+
+        <activity android:name=".Ui.SettingsActivity" />
         <activity android:name=".Ui.ShowDoctors" />
-        <activity android:name=".Ui.MainActivity"></activity>
+
+        <activity
+            android:name=".Ui.FindDoctor"
+
+            android:parentActivityName=".Ui.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="Ui.MainActivity" />
+        </activity>
+
+        <service
+            android:name=".sync.HealthCareSyncIntentService"
+            android:exported="false" />
+
     </application>
 
 </manifest>

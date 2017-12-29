@@ -31,5 +31,10 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.android.support:recyclerview-v7:27.0.2'
     compile 'com.mcxiaoke.volley:library-aar:1.0.0'
+    implementation 'com.android.support:preference-v7:27.0.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    compile 'com.firebase:firebase-jobdispatcher:0.5.0'
 
 }

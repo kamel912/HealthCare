@@ -2,13 +2,17 @@ package com.teamvii.healthcare.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
+
+import com.teamvii.healthcare.R;
 
 /**
  * Created by ibrahim on 18/12/17.
  */
 
 public class PreferenceUtil {
+
 
     public static final String USER_ID_KEY = "user_id";
     public static final String CHAGE_LANG_KEY = "lang_key";
@@ -125,6 +129,31 @@ public class PreferenceUtil {
         return mInstance;
     }
 
+    public static String getPreferredLang(Context context) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences( context );
+
+        String keyForlangAR = context.getString( R.string.pref_language_arabic_value );
+        String keyForlangEn = context.getString( R.string.pref_language_english_value );
+
+        return sp.getString( keyForlangEn, keyForlangAR );
+    }
+
+    public static void resetLang(Context context) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences( context );
+        SharedPreferences.Editor editor = sp.edit();
+
+        editor.remove( CHAGE_LANG_KEY );
+        editor.apply();
+    }
+
+    public static void setLang(Context context, String s) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences( context );
+        SharedPreferences.Editor editor = sp.edit();
+
+        editor.putString( CHAGE_LANG_KEY, s );
+        editor.apply();
+    }
+
     public void setLANG_KEY(String s) {
         editor.putString( CHAGE_LANG_KEY, s );
         editor.commit();
@@ -140,6 +169,7 @@ public class PreferenceUtil {
 
         return pref.getString( CHAGE_LANG_KEY, null );
     }
+
     ///////////////
     public void setLangIdKey(Context context, String s) {
         editor.putString( LANG_ID_KEY, s );
@@ -275,5 +305,7 @@ public class PreferenceUtil {
         SharedPreferences sharedPreferences = _context.getSharedPreferences( SHARED_PREF_NAME, Context.MODE_PRIVATE );
         return sharedPreferences.getString( TAG_TOKEN, null );
     }
+
+
 }
 

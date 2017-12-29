@@ -1,4 +1,4 @@
-package com.teamvii.healthcare.InitiateVolley;
+package com.teamvii.healthcare.sync;
 
 import android.content.Context;
 import android.util.Log;
@@ -12,7 +12,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.teamvii.healthcare.data.MDbHelber;
 import com.teamvii.healthcare.data.PreferenceUtil;
-import com.teamvii.healthcare.data.SetLang;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,7 +22,6 @@ import java.util.Map;
 
 import static com.teamvii.healthcare.data.Contract.MashweerEntry.URL_SYNC;
 import static com.teamvii.healthcare.data.Contract.MashweerEntry.URL_SYNC_AREA;
-import static com.teamvii.healthcare.data.Contract.MashweerEntry.URL_SYNC_DR;
 import static com.teamvii.healthcare.data.Contract.MashweerEntry.URL_SYNC_INSURANCE;
 import static com.teamvii.healthcare.data.Contract.MashweerEntry.URL_SYNC_SPECIALITIES;
 import static com.teamvii.healthcare.data.Contract.MashweerEntry.URL_SYNC_STATES;
@@ -31,73 +29,23 @@ import static com.teamvii.healthcare.data.Contract.MashweerEntry.URL_SYNC_STATES
 /**
  * Created by ibrahim on 26/12/17.
  */
-
+//TODO 1 كلاس الميثود استدعاء بالفولي
 public class GetSpinnersContents {
     private static final String TAG = GetSpinnersContents.class.getSimpleName();
+
     MDbHelber mDbHelber;
     RequestQueue requestQueue;
     Context context;
-    String LANG;
-
     PreferenceUtil preferenceUtil;
-    SetLang setLang;
+
     public GetSpinnersContents(Context context) {
         this.context = context;
-    }
-
-    ///TODO part of state data spinner////////////////////////////////////////////////////
-    //===============================getDoctor==============================================================
-    public void getDoctor(Context context) {
-
-        mDbHelber = new MDbHelber( context );
-        StringRequest stringRequest = new StringRequest( Request.Method.POST, URL_SYNC_DR,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONArray jsonArray = new JSONArray( response );
-                            PARSE_DOCTOR( jsonArray );
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        } ) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                return params;
-            }
-        };
-        requestQueue = Volley.newRequestQueue( context );
-        requestQueue.add( stringRequest );
-    }
-
-    public void PARSE_DOCTOR(JSONArray array) {
-        for (int i = 0; i < array.length(); i++) {
-            JSONObject json = null;
-            try {
-                json = array.getJSONObject( i );
-                String id = json.getString( "id" );
-                String name = json.getString( "name" );
-                String gender = json.getString( "gender" );
-                mDbHelber.addDoctorForSpinner( id, name, gender );
-                Log.d( TAG, "value from server : " + id + "  " + name + "  " + gender );
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    //=================getStates============================================================================
-    public void getStates(Context context) {
-        mDbHelber = new MDbHelber( context );
-        setLang = new SetLang( context );
         preferenceUtil = new PreferenceUtil( context );
+        mDbHelber = new MDbHelber( context );
+
+    }
+
+    public void getStates(Context context) {
 
         StringRequest stringRequest = new StringRequest( Request.Method.GET, URL_SYNC + preferenceUtil.getLANG_KEY( context ) + URL_SYNC_STATES,
                 new Response.Listener<String>() {
@@ -145,8 +93,6 @@ public class GetSpinnersContents {
     //===================================getAreas=================================================
     public void getAreas(Context context) {
         mDbHelber = new MDbHelber( context );
-        setLang = new SetLang( context );
-        preferenceUtil = new PreferenceUtil( context );
 
         StringRequest stringRequest = new StringRequest( Request.Method.POST, URL_SYNC + preferenceUtil.getLANG_KEY( context ) + URL_SYNC_AREA,
                 new Response.Listener<String>() {
@@ -193,8 +139,6 @@ public class GetSpinnersContents {
     //==================================getInsurance=============================================
     public void getInsurance(Context context) {
         mDbHelber = new MDbHelber( context );
-        setLang = new SetLang( context );
-        preferenceUtil = new PreferenceUtil( context );
 
         StringRequest stringRequest = new StringRequest( Request.Method.GET, URL_SYNC + preferenceUtil.getLANG_KEY( context ) + URL_SYNC_INSURANCE,
                 new Response.Listener<String>() {
@@ -242,8 +186,6 @@ public class GetSpinnersContents {
     //==============================getSpecialities===============================================
     public void getSpecialities(Context context) {
         mDbHelber = new MDbHelber( context );
-        setLang = new SetLang( context );
-        preferenceUtil = new PreferenceUtil( context );
 
         StringRequest stringRequest = new StringRequest( Request.Method.GET, URL_SYNC + preferenceUtil.getLANG_KEY( context ) + URL_SYNC_SPECIALITIES,
                 new Response.Listener<String>() {
